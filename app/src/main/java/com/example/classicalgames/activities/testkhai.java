@@ -1,8 +1,10 @@
-package com.example.classicalgames;
+package com.example.classicalgames.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.classicalgames.R;
 
 public class testkhai extends AppCompatActivity {
 

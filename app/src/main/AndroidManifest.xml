@@ -13,13 +13,13 @@
         android:theme="@style/Theme.ClassicalGames"
         tools:targetApi="31">
         <activity
-            android:name=".Activity2048"
+            android:name=".activities.Activity2048"
             android:exported="false" />
         <activity
-            android:name=".testkhai"
+            android:name=".activities.testkhai"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
