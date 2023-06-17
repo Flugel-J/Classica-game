@@ -1,14 +1,27 @@
 package com.example.classicalgames.models;
 
-public class Cells {
+public class Cell {
     private int value;
     private int x;
     private int y;
+    private int source;
 
-    public Cells(int value, int x, int y) {
+    public Cell() {
+    }
+
+    public Cell(int value, int x, int y, int source) {
         this.value = value;
         this.x = x;
         this.y = y;
+        this.source = source;
+    }
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
     }
 
     public int getValue() {

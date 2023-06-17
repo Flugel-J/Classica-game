@@ -155,9 +155,10 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/box11"
+                    android:id="@+id/brick00"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     />
 
             </RelativeLayout>
@@ -167,9 +168,10 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/box12"
+                    android:id="@+id/brick01"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     />
 
             </RelativeLayout>
@@ -179,9 +181,10 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/box13"
+                    android:id="@+id/brick02"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     />
 
             </RelativeLayout>
@@ -191,7 +194,125 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/box14"
+                    android:id="@+id/brick03"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:weightSum="4"
+            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:weightSum="4"
+            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick20"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick21"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick22"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick23"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
@@ -210,7 +331,31 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/box21"
+                    android:id="@+id/brick30"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/brick31"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/brick32"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
@@ -222,141 +367,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/box22"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box23"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box24"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:weightSum="4"
-            android:layout_weight="1">
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box31"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box32"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box33"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box34"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:weightSum="4"
-            android:layout_weight="1">
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box41"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box42"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box43"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_margin="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/box44"
+                    android:id="@+id/brick33"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
