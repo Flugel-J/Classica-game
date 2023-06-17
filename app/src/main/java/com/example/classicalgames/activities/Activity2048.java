@@ -21,7 +21,8 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         setContentView(R.layout.activity_2048);
         presenter = new Do2048Presenter(this);
         presenter.start();
-
+//        int id = getResources().getIdentifier("funkyTown.mp3","raw",getPackageName());
+//        MediaPlayer mediaPlayer = MediaPlayer.create(this,id);
     }
 
 
