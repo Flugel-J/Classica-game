@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface Do2048Contract {
     interface View{
-       void Display(List<Cell> list);
+       void Display(Cell list[][]);
     }
     interface Presenter{
         void start();
-        void update();
+        void update(Direction direction);
     }
 }
