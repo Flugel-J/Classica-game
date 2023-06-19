@@ -12,6 +12,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="18dp"
         android:background="#19881D"
+        android:onClick="onClickedMinesweeper"
         android:text="Minesweeper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
