@@ -18,7 +18,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
         DoMinesweeperContract.Presenter minesweeper_presenter = new DoMinesweeperPresenter();
 
         minesweeper_presenter.RandomGenerateMineByDifficultLevel("beginner9x9Area10Mines");
-        minesweeper_presenter.NewGameByDifficultLevel("beginner9x9Area");
+        minesweeper_presenter.NewGameByDifficultLevel("beginner9x9Area10Mines");
     }
 
 }
