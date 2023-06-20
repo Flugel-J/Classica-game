@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.classicalgames.R;
+import com.example.classicalgames.contracts.DoMainContract;
 
-public class MainActivity extends AppCompatActivity {
+import org.jetbrains.annotations.Contract;
+
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,4 +28,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ActivityMinesweeper.class);
         startActivity(intent);
     }
+
+
 }
