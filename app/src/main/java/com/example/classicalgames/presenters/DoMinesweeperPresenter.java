@@ -40,6 +40,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
 
                 mineBoard.setX(9);
                 mineBoard.setY(9);
+                mineBoard.setTotalMine(10);
                 mineBoard.setNumberOfMine(10);
 
                 mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard);
@@ -49,6 +50,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
 
                 mineBoard.setX(16);
                 mineBoard.setY(16);
+                mineBoard.setTotalMine(40);
                 mineBoard.setNumberOfMine(40);
 
                 mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard);
@@ -59,6 +61,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
 
                 mineBoard.setX(16);
                 mineBoard.setY(30);
+                mineBoard.setTotalMine(99);
                 mineBoard.setNumberOfMine(99);
 
                 mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard);
@@ -68,18 +71,27 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
         return mineSquareList;
     }
 
+    @Override
+    public List<MineSquare> RandomGenerateMineByMinesweeperBoard(MinesweeperBoard minesweeperBoard) {
+        List<MineSquare> mineSquareList = new ArrayList<>();
+
+        return mineSquareList;
+    }
+
     private List<MineSquare> RandomMineIntoClusterByDifficultLevel(int numberOfCluster, MinesweeperBoard mineBoard) {
         List<MineSquare> mineSquareList = new ArrayList<>();
         int horizonSizeOfCluster = mineBoard.getX() / numberOfCluster;
-        int numberOfMineInCluster = mineBoard.getNumberOfMine() / numberOfCluster;
+        int numberOfMineInCluster = mineBoard.getTotalMine() / numberOfCluster;
 
         //random position of mine in column coordinator of each row in each cluster until out of mine
         for (int count = 0; count < numberOfCluster; count++) {
-            for (int columnIndex = count * horizonSizeOfCluster; columnIndex < horizonSizeOfCluster; columnIndex++) {
+            int loopTime = 1;
+            for (int columnIndex = count * horizonSizeOfCluster; loopTime <= horizonSizeOfCluster; loopTime+=1) {
                 Random random = new Random();
                 MineSquare mineSquare = new MineSquare();
 
                 mineSquare.setX(columnIndex);
+                columnIndex += 1;
                 mineSquare.setY(random.nextInt(mineBoard.getY()));
                 mineSquare.setMine(true);
 
@@ -91,12 +103,31 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
     }
 
     @Override
-    public boolean IsMine() {
-        return false;
+    public boolean IsWin(MinesweeperBoard minesweeperBoard) {
+        return (minesweeperBoard.getNumberOfMine() == 0);
     }
 
     @Override
-    public boolean IsWin() {
-        return false;
+    public boolean IsMine(MineSquare mineSquare) {
+        return mineSquare.isMine();
+    }
+
+    @Override
+    public boolean IsFlag(MineSquare mineSquare) {
+        return mineSquare.isFlag();
+    }
+
+    @Override
+    public void setFlag(MineSquare mineSquare, boolean isInsertFlag) {
+        if (isInsertFlag){
+            mineSquare.setFlag(true);
+        }
+    }
+
+    @Override
+    public void setMarkedUnknown(MineSquare mineSquare, boolean isMarkUnknown) {
+        if (isMarkUnknown){
+            mineSquare.setMarkedUnknown(true);
+        }
     }
 }
