@@ -59,11 +59,11 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 if(array[i][j]!=null) {
-                    findCoordinator(array[i][j].getX(), array[i][j].getY())
+                    findCoordinator(i, j)
                             .setImageResource(array[i][j].getSource());
                 }
-                }
             }
+        }
     }
 
     ImageView findCoordinator(int x,int y){

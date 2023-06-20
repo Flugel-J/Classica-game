@@ -2,17 +2,15 @@ package com.example.classicalgames.models;
 
 public class Cell {
     private int value;
-    private int x;
-    private int y;
+    private int x;//store prev x location
+    private int y;//store prev y location
     private int source;
 
     public Cell() {
     }
 
-    public Cell(int value, int x, int y, int source) {
+    public Cell(int value, int source) {
         this.value = value;
-        this.x = x;
-        this.y = y;
         this.source = source;
     }
 
