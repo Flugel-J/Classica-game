@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Cells extends ArrayList<Cell> {
     public Cells(){
+        this.add(new Cell(0,0));
         this.add(new Cell(1, R.drawable.c_2));
         this.add(new Cell(2, R.drawable.c_4));
         this.add(new Cell(3, R.drawable.c_8));
@@ -19,7 +20,7 @@ public class Cells extends ArrayList<Cell> {
 
     }
     public Cell search(int value){
-        for (Cell c :this){
+        for (Cell c : this){
             if(c.getValue()==value)
                 return c;
         }

@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.Direction;
@@ -28,24 +29,25 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         gameBoard.setOnTouchListener(new OnSwipeTouchListener(this){
             @Override
             public void onSwipeTop() {
-
+                Toast.makeText(Activity2048.this,"top",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Top);
             }
 
             @Override
             public void onSwipeBottom() {
+                Toast.makeText(Activity2048.this,"bot",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Bottom);
             }
 
             @Override
             public void onSwipeLeft() {
-
+                Toast.makeText(Activity2048.this,"left",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Left);
             }
 
             @Override
             public void onSwipeRight() {
-
+                Toast.makeText(Activity2048.this,"right",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Right);
             }
         });
@@ -58,9 +60,14 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     public void Display(Cell array[][]) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-                if(array[i][j]!=null) {
+
+                if(array[i][j].getValue()!=0) {
                     findCoordinator(i, j)
                             .setImageResource(array[i][j].getSource());
+                }
+                else{
+                    findCoordinator(i, j)
+                            .setImageResource(0);
                 }
             }
         }
