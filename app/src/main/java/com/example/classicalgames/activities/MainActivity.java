@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.classicalgames.R;
+
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.presenters.DoMainPresenter;
 import com.example.myapplication.R;
