@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.presenters.DoMainPresenter;
-import com.example.myapplication.R;
+import com.example.classicalgames.R;
 
 public class MainActivity extends AppCompatActivity implements DoMainContract.View{
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         //am thanh
         sound = findViewById(R.id.btn_sound);
 
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.soundBG);
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_background);
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
