@@ -3,21 +3,23 @@ package com.example.classicalgames.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.presenters.DoMainPresenter;
+import com.example.classicalgames.R;
+
 
 public class MainActivity extends AppCompatActivity implements DoMainContract.View{
 
     private EditText inputname;
     private Button enterName;
     private DoMainContract.Presenter presenter;
+    private Button sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,19 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
 
         inputname = findViewById(R.id.text_inputname);
         enterName = findViewById(R.id.enter_name);
+        //am thanh
+        sound = findViewById(R.id.btn_sound);
+
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_background);
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+            }
+        });
+        //ket thuc am thanh
+
+
 
         presenter = new DoMainPresenter(this);
 
@@ -37,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         });
 
     }
+    //ket thuc ham onCreate
     public void onClicked2048(View view){
         Intent intent = new Intent(this, Activity2048.class);
         startActivity(intent);
