@@ -13,8 +13,6 @@ import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.presenters.DoMainPresenter;
 
-import org.jetbrains.annotations.Contract;
-
 public class MainActivity extends AppCompatActivity implements DoMainContract.View{
 
     private EditText inputname;

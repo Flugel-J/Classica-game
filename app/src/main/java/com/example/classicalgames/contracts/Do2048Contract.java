@@ -9,6 +9,7 @@ import java.util.List;
 public interface Do2048Contract {
     interface View{
        void Display(Cell list[][]);
+       void gameOver();
     }
     interface Presenter{
         void start();

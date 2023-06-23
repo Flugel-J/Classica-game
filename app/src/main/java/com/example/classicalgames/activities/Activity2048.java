@@ -73,6 +73,11 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         }
     }
 
+    @Override
+    public void gameOver() {
+        Toast.makeText(Activity2048.this,"GAME",Toast.LENGTH_SHORT).show();
+    }
+
     ImageView findCoordinator(int x,int y){
         int coordinator= (10*x)+y;
         String imageViewId;

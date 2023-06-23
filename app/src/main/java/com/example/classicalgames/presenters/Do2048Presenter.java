@@ -1,6 +1,8 @@
 package com.example.classicalgames.presenters;
 
 
+import android.util.Log;
+
 import com.example.classicalgames.contracts.Direction;
 import com.example.classicalgames.contracts.Do2048Contract;
 import com.example.classicalgames.models.Cell;
@@ -36,8 +38,10 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
 //        Log.d("spare",totalSpareBlock()+"");
         view.Display(change());
         if(!addNewCell()){
-            if(checkGameOver())
+            if(checkGameOver()) {
                 view.gameOver();
+                Log.d("gameover","gameOver");
+            }
         }
     }
     private Cell[][] change(){
@@ -67,9 +71,11 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         totalBlockGenerate = r.nextInt(maxBlockPerTurn)+1;
         if(totalBlockGenerate>totalSpareBlock)
             totalBlockGenerate=totalSpareBlock;
-        if(totalBlockGenerate>=0)
-            canAdd =true;
-        //Log.d("block","total:"+totalSpareBlock+" Create:"+totalBlockGenerate);
+        if(totalBlockGenerate>=0){
+            canAdd = true;
+            Log.d("gameover","cant create block");
+        }
+
         for (int i = 0; i < totalBlockGenerate; i++) {
             int c;
             if (r.nextBoolean()) {
@@ -238,19 +244,24 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     private boolean checkGameOver(){
         for (int i = 0;i<3;i++){
             for (int j =0;j<3;j++){
-                if(gameboard[i][j]==gameboard[i][j+1])
+                if(gameboard[i][j]==gameboard[i][j+1]) {
+                    Log.d("block",(i*10+j)+"");
                     return false;
-                else if(gameboard[i][j]==gameboard[i+1][j])
+                }
+                else if(gameboard[i][j]==gameboard[i+1][j]) {
+                    Log.d("block",i*10+j+"");
                     return false;
+                }
             }
         }
+        Log.d("block","none");
         return true;
     }
     private List<Integer> spareBlocksPosition() {
         List<Integer> spare = new ArrayList<>();
         for (int i = 0; i < gameboard.length; i++){
             for (int j = 0; j < gameboard[i].length; j++) {
-                if (  gameboard[i][j] == 0) {
+                if (gameboard[i][j] == 0) {
                     spare.add(i*10+j);
                 }
             }
@@ -263,9 +274,9 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         return spare.get(rand);
     }
     private void generateGameOver(){
-        for (int i = 0; i < gameboard.length; i++){
-            for (int j = 0; j < gameboard[i].length; j++) {
-                gameboard[i][j]=i+j;
+        for (int i = 0; i < 4; i++){
+            for (int j = 3; j >=0; j--) {
+                gameboard[i][j]=i+j+1>10?1:i+j+1;
             }
         }
     }
