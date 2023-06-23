@@ -1,4 +1,4 @@
-package com.example.classicalgames.presenters;
+package com.example.classicalgames;
 
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.models.MainModel;
