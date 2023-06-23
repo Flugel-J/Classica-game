@@ -1,8 +1,8 @@
 package com.example.classicalgames.models;
 
 public class MinesweeperBoard {
-    private int x;
-    private int y;
+    private int numberOfColumn;
+    private int numberOfRow;
     private int totalMine;
     private int numberOfMine;
 
@@ -10,26 +10,26 @@ public class MinesweeperBoard {
     }
 
     public MinesweeperBoard(int x, int y, int totalMine, int numberOfMine) {
-        this.x = x;
-        this.y = y;
+        this.numberOfColumn = x;
+        this.numberOfRow = y;
         this.totalMine = totalMine;
         this.numberOfMine = numberOfMine;
     }
 
-    public int getX() {
-        return x;
+    public int getNumberOfColumn() {
+        return numberOfColumn;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setNumberOfColumn(int numberOfColumn) {
+        this.numberOfColumn = numberOfColumn;
     }
 
-    public int getY() {
-        return y;
+    public int getNumberOfRow() {
+        return numberOfRow;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setNumberOfRow(int numberOfRow) {
+        this.numberOfRow = numberOfRow;
     }
 
     public int getTotalMine() {
