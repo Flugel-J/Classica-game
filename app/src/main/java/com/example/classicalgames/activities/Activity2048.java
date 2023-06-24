@@ -1,12 +1,19 @@
 package com.example.classicalgames.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.app.PendingIntent.getActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.Direction;
@@ -14,40 +21,48 @@ import com.example.classicalgames.contracts.Do2048Contract;
 import com.example.classicalgames.models.Cell;
 import com.example.classicalgames.presenters.Do2048Presenter;
 
-public class Activity2048 extends AppCompatActivity implements Do2048Contract.View {
+public class Activity2048 extends AppCompatActivity implements Do2048Contract.View,gameOver_2048.NoticeDialogListener{
     Do2048Contract.Presenter presenter;
     LinearLayout gameBoard;
+    TextView playerScore;
+    TextView highScore;
+    MediaPlayer mediaPlayer;
+    SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2048);
+        playerScore =(TextView) findViewById(R.id.txt_score);
+        highScore = (TextView) findViewById(R.id.txt_highScore);
         presenter = new Do2048Presenter(this);
-        presenter.start();
-//        int id = getResources().getIdentifier("funkyTown.mp3","raw",getPackageName());
-//        MediaPlayer mediaPlayer = MediaPlayer.create(this,id);
+        sharedPref = this.getSharedPreferences("2048HighScore",Context.MODE_PRIVATE);
+        int highscore =0;
+        highscore+= sharedPref.getInt("HighScore",0);
+        highScore.setText(highscore+"");
+        mediaPlayer = MediaPlayer.create(this, R.raw.funky_town);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
         gameBoard = findViewById(R.id.gameboard);
+        presenter.start();
         gameBoard.setOnTouchListener(new OnSwipeTouchListener(this){
             @Override
             public void onSwipeTop() {
-                Toast.makeText(Activity2048.this,"top",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Top);
             }
 
             @Override
             public void onSwipeBottom() {
-                Toast.makeText(Activity2048.this,"bot",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Bottom);
             }
 
             @Override
             public void onSwipeLeft() {
-                Toast.makeText(Activity2048.this,"left",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Left);
             }
 
             @Override
             public void onSwipeRight() {
-                Toast.makeText(Activity2048.this,"right",Toast.LENGTH_SHORT).show();
                 presenter.update(Direction.Right);
             }
         });
@@ -57,7 +72,8 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
 
 
     @Override
-    public void Display(Cell array[][]) {
+    public void Display(Cell array[][],int score) {
+        playerScore.setText(score+"");
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
 
@@ -74,8 +90,19 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     }
 
     @Override
-    public void gameOver() {
-        Toast.makeText(Activity2048.this,"GAME",Toast.LENGTH_SHORT).show();
+    public void gameOver(int score) {
+        sharedPref = this.getSharedPreferences("2048HighScore",Context.MODE_PRIVATE);
+        if(sharedPref.getInt("HighScore",0)<score) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("HighScore", score);
+            editor.apply();
+        }
+        gameOver_2048 game = new gameOver_2048();
+        Bundle bundle = new Bundle();
+        bundle.putString("score","Score: "+ score);
+        game.setArguments(bundle);
+        game.setCancelable(false);
+        game.show(getSupportFragmentManager(),"gameOver");
     }
 
     ImageView findCoordinator(int x,int y){
@@ -91,5 +118,23 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         Resources resources = getResources();
         int resourceId = resources.getIdentifier(imageViewId, "id", getPackageName());
         return findViewById(resourceId);
+    }
+    //Bak to Main menu
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Intent i = new Intent(Activity2048.this, MainActivity.class);
+        startActivity(i);
+    }
+    //Try Again
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        presenter.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.release();
+        mediaPlayer=null;
     }
 }

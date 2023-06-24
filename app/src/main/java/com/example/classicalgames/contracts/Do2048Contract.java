@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface Do2048Contract {
     interface View{
-       void Display(Cell list[][]);
-       void gameOver();
+       void Display(Cell list[][], int score);
+       void gameOver(int score);
     }
     interface Presenter{
         void start();

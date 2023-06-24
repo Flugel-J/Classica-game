@@ -16,9 +16,9 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     Do2048Contract.View view;
     private int totalBlockGenerate;
     private int maxBlockPerTurn = 2;
-    private int[][] gameboard = new int[4][4];//[x][y]
+    private int[][] gameboard;//[x][y]
     private CellsArray cellsArray;
-
+    private int score;
     public Do2048Presenter(Do2048Contract.View view) {
         this.view = view;
         cellsArray = new CellsArray();
@@ -27,28 +27,30 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     //start call once in a game
     @Override
     public void start() {
-        //addNewCell();
-        generateGameOver();
-        view.Display(change());
+        score=0;
+        gameboard= new int[4][4];
+        addNewCell();
+        //generateGameOver();
+        view.Display(change(),score);
     }
     //update call every swipe
     @Override
     public void update(Direction direction) {
         change_matrix(direction);
-//        Log.d("spare",totalSpareBlock()+"");
-        view.Display(change());
         if(!addNewCell()){
             if(checkGameOver()) {
-                view.gameOver();
-                Log.d("gameover","gameOver");
+                view.gameOver(score);
             }
         }
+        view.Display(change(),score);
     }
     private Cell[][] change(){
         Cell[][] array = new Cell[4][4];
         for (int i = 0; i < gameboard.length; i++) {
             for (int j = 0; j < gameboard[i].length; j++) {
                 array[i][j]= cellsArray.search(gameboard[i][j]);
+                if(array[i][j]==null)
+                    gameboard[i][j]=0;
             }
         }
         return array;
@@ -67,23 +69,21 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     private boolean addNewCell(){
         Random r = new Random();
         int totalSpareBlock = totalSpareBlock();
-        boolean canAdd = false;
+        boolean canAdd = true;
         totalBlockGenerate = r.nextInt(maxBlockPerTurn)+1;
         if(totalBlockGenerate>totalSpareBlock)
             totalBlockGenerate=totalSpareBlock;
         if(totalBlockGenerate>=0){
-            canAdd = true;
-            Log.d("gameover","cant create block");
+            canAdd = false;
         }
 
         for (int i = 0; i < totalBlockGenerate; i++) {
             int c;
-            if (r.nextBoolean()) {
+            if (r.nextBoolean())
                 c=1;
-            }
-            else {
+            else
                 c=2;
-            }
+            score +=c;
             int rand = r.nextInt(totalSpareBlock);
             int pos = position(rand);
             //Log.d("block"," At:"+pos);
@@ -245,16 +245,13 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         for (int i = 0;i<3;i++){
             for (int j =0;j<3;j++){
                 if(gameboard[i][j]==gameboard[i][j+1]) {
-                    Log.d("block",(i*10+j)+"");
                     return false;
                 }
                 else if(gameboard[i][j]==gameboard[i+1][j]) {
-                    Log.d("block",i*10+j+"");
                     return false;
                 }
             }
         }
-        Log.d("block","none");
         return true;
     }
     private List<Integer> spareBlocksPosition() {
@@ -279,5 +276,6 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
                 gameboard[i][j]=i+j+1>10?1:i+j+1;
             }
         }
+        score+=3;
     }
 }

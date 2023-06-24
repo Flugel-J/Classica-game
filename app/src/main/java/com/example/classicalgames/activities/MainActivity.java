@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
     private Button enterName;
     private DoMainContract.Presenter presenter;
     private Button sound;
+
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,12 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         //am thanh
         sound = findViewById(R.id.btn_sound);
 
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_background);
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound_background);
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
+                mediaPlayer.setLooping(true);
             }
         });
         //ket thuc am thanh
@@ -67,5 +70,11 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
     @Override
     public void displayGreeting(String greeting) {
         Toast.makeText(this, greeting, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.release();
+        mediaPlayer=null;
     }
 }
