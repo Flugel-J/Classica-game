@@ -10,8 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.classicalgames.contracts.DoMainContract;
-import com.example.classicalgames.presenters.DoMainPresenter;
 import com.example.classicalgames.R;
+import com.example.classicalgames.presenters.DoMainPresenter;
+import com.example.classicalgames.contracts.Menu;
 
 
 public class MainActivity extends AppCompatActivity implements DoMainContract.View{
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         Intent intent = new Intent(this, Activity2048.class);
         startActivity(intent);
     }
+
 
     public void onClickedMinesweeper(View view) {
         Intent intent = new Intent(this, ActivityMinesweeper.class);
