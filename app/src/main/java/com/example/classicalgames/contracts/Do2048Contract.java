@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface Do2048Contract {
     interface View {
-        void Display(Cell list[][], int score);
+        void Display(Cell[][] array, int score,int[] newCellLocation);
         void gameOver(int score);
 
     }
     interface Presenter{
         void start();
         void update(Direction direction);
-        void loadSaved(List<Cell> c);
-        List<Cell> savedCurrentGame();
+        void loadSaved(List<Cell> cells);
+        void savedCurrentGame(Context context);
     }
 }

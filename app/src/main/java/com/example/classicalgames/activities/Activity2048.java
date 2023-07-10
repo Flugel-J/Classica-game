@@ -14,9 +14,12 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.CellDAO;
@@ -95,21 +98,27 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
 
 
     @Override
-    public void Display(Cell array[][],int score) {
+    public void Display(Cell array[][],int score, int[] newCellLocation) {
         playerScore.setText(score+"");
+
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-
-                if(array[i][j].getValue()!=0) {
-                    findCoordinator(i, j)
-                            .setImageResource(array[i][j].getSource());
-                }
-                else{
-                    findCoordinator(i, j)
-                            .setImageResource(0);
+                ImageView imageView = findCoordinator(i, j);
+                if (array[i][j].getValue() != 0) {
+                    imageView.setImageResource(array[i][j].getSource());
+                    }
+                else {
+                        imageView.setImageResource(0);
                 }
             }
         }
+        if(newCellLocation!=null){
+            for (int i = 0; i<newCellLocation.length;i++){
+                findCoordinator(newCellLocation[i]/10,newCellLocation[i]%10)
+                        .setAnimation(popUpAnimation());
+            }
+        }
+
     }
 
     @Override
@@ -159,15 +168,15 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                List<Cell> c = cellDAO.loadData();
+                List<Cell> list = cellDAO.loadData();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        presenter.loadSaved(c);
+                        presenter.loadSaved(list);
                     }
                 });
-            }
 
+            }
         });
         t.start();
         dialog.dismiss();
@@ -176,26 +185,38 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
 
     @Override
     public void saveAndExit(DialogFragment dialog) {
-        List<Cell> cells = presenter.savedCurrentGame();
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 cellDAO.nukeTable();
-                for(Cell c:cells) {
-                    cellDAO.insertAll(c);
-                }
+                presenter.savedCurrentGame(Activity2048.this);
                 Intent i = new Intent(Activity2048.this, MainActivity.class);
                 startActivity(i);
+                dialog.dismiss();
             }
         });
         t.start();
-        dialog.dismiss();
+
+
     }
 
     @Override
     public void newGame(DialogFragment dialog) {
         dialog.dismiss();
         presenter.start();
+    }
+
+    private Animation popUpAnimation() {
+        // Create the animation
+        Animation animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+
+        // Set the duration of the animation
+        animation.setDuration(500);
+
+        // Return the animation
+        return animation;
     }
 
     @Override
