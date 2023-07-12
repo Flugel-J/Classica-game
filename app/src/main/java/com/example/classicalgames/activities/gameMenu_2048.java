@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.location.GnssAntennaInfo;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.Menu;
@@ -25,12 +28,17 @@ public class gameMenu_2048 extends DialogFragment {
     private Button btnMenu2;
     private Button btnMenu3;
     private Button btnMenu4;
+    private TextView score;
+    private SeekBar volume;
     private Menu menu;
+    private float currentVol;
 
     NoticeDialogListener listener;
-    public static gameMenu_2048 newInstance(Menu menu) {
+    public static gameMenu_2048 newInstance(Menu menu, String... score) {
         Bundle args = new Bundle();
         args.putSerializable("menu", menu);
+        if(score.length>0)
+            args.putString("score",score[0]);
         gameMenu_2048 f = new gameMenu_2048();
         f.setArguments(args);
         return f;
@@ -45,6 +53,8 @@ public class gameMenu_2048 extends DialogFragment {
         btnMenu2 = view.findViewById(R.id.btn_2);
         btnMenu3 = view.findViewById(R.id.btn_3);
         btnMenu4 = view.findViewById(R.id.btn_4);
+        score = view.findViewById(R.id.txt_score);
+        volume = view.findViewById(R.id.sb_volume);
         menu =(Menu)getArguments().get("menu");
         switch (menu) {
             case StartMenu:
@@ -96,6 +106,64 @@ public class gameMenu_2048 extends DialogFragment {
                         dismiss();
                     }
                 });
+                btnMenu4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.settingMenu(gameMenu_2048.this);
+                    }
+                });
+                break;
+            case GameOverMenu:
+                btnMenu1.setText("Try Again");
+                btnMenu2.setText("Exit");
+                btnMenu3.setVisibility(View.GONE);
+                btnMenu4.setVisibility(View.GONE);
+                score.setText(getArguments().getString("score"));
+                btnMenu1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.newGame(gameMenu_2048.this);
+                    }
+                });
+                btnMenu2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        startActivity(i);
+                    }
+                });
+                break;
+            case SettingMenu:
+                score.setText("Music");
+                volume.setVisibility(View.VISIBLE);
+                currentVol = getArguments().getFloat("volume")*100;
+                volume.setProgress((int)currentVol);
+                volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                        listener.changeVolume(gameMenu_2048.this,i);
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+                btnMenu1.setText("Return");
+                btnMenu2.setVisibility(View.GONE);
+                btnMenu3.setVisibility(View.GONE);
+                btnMenu4.setVisibility(View.GONE);
+                btnMenu1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dismiss();
+                    }
+                });
                 break;
         }
         builder.setView(view);
@@ -105,6 +173,8 @@ public class gameMenu_2048 extends DialogFragment {
         void loadSavedGame(DialogFragment dialog);
         void saveAndExit(DialogFragment dialog);
         void newGame(DialogFragment dialog);
+        void changeVolume(DialogFragment dialog,int volume);
+        void settingMenu(DialogFragment dialog);
 
     }
     @Override
