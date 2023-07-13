@@ -60,7 +60,7 @@ public class gameMenu_2048 extends DialogFragment {
             case StartMenu:
                 btnMenu1.setText("Continue");
                 btnMenu2.setText("New game");
-                btnMenu3.setText("High Score");
+                btnMenu3.setText("Setting");
                 btnMenu4.setVisibility(View.GONE);
                 btnMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -77,7 +77,7 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        listener.settingMenu(gameMenu_2048.this,menu);
                    }
                 });
 
@@ -109,7 +109,7 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.settingMenu(gameMenu_2048.this);
+                        listener.settingMenu(gameMenu_2048.this,menu);
                     }
                 });
                 break;
@@ -137,6 +137,7 @@ public class gameMenu_2048 extends DialogFragment {
                 score.setText("Music");
                 volume.setVisibility(View.VISIBLE);
                 currentVol = getArguments().getFloat("volume")*100;
+
                 volume.setProgress((int)currentVol);
                 volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -161,6 +162,11 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(getArguments().getSerializable("destinationMenu")==Menu.StartMenu) {
+                            gameMenu_2048 menu_2048 = gameMenu_2048.newInstance(Menu.StartMenu);
+                            menu_2048.setCancelable(false);
+                            menu_2048.show(getParentFragmentManager(), "2048Menu");
+                        }
                         dismiss();
                     }
                 });
@@ -174,7 +180,7 @@ public class gameMenu_2048 extends DialogFragment {
         void saveAndExit(DialogFragment dialog);
         void newGame(DialogFragment dialog);
         void changeVolume(DialogFragment dialog,int volume);
-        void settingMenu(DialogFragment dialog);
+        void settingMenu(DialogFragment dialog,Menu menu);
 
     }
     @Override

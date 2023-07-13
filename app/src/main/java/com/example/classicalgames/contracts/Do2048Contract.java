@@ -1,10 +1,6 @@
 package com.example.classicalgames.contracts;
-
 import android.content.Context;
-
-import com.example.classicalgames.contracts.Direction;
 import com.example.classicalgames.models.Cell;
-
 import java.util.List;
 
 public interface Do2048Contract {

@@ -1,11 +1,6 @@
 package com.example.classicalgames.presenters;
-
-
 import android.content.Context;
-import android.util.Log;
-
 import androidx.room.Room;
-
 import com.example.classicalgames.contracts.CellDAO;
 import com.example.classicalgames.contracts.Database2048;
 import com.example.classicalgames.contracts.Direction;
@@ -13,7 +8,6 @@ import com.example.classicalgames.contracts.Do2048Contract;
 import com.example.classicalgames.models.Cell;
 import com.example.classicalgames.models.CellsArray;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -57,7 +51,6 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         gameboard = new int[4][4];
         for(Cell cell : cells){
             gameboard[cell.getX()][cell.getY()]=cell.getValue();
-            Log.d("loadSaved","cell:"+cell.getKey()+" X:"+cell.getX()+" Y:"+cell.getY()+" Value:"+cell.getValue());
         }
         for (int i = 0; i < gameboard.length; i++) {
             for (int j = 0; j < gameboard[i].length; j++) {
@@ -77,7 +70,6 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
                     c.setX(i);
                     c.setY(j);
                     list.add(c);
-                    Log.d("ReturnSaved"," X:"+c.getX()+" Y:"+c.getY()+" Value:"+c.getValue());
                 }
             }
                 Database2048 db = Room.databaseBuilder(context,
@@ -310,14 +302,15 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         List<Integer> spare = spareBlocksPosition();
         return spare.get(rand);
     }
-    private void generateGameOver(){
-        for (int i = 0; i < 4; i++){
-            for (int j = 3; j >=0; j--) {
-                gameboard[i][j]=i+j+1>10?1:i+j+1;
-            }
-        }
-        score+=3;
-    }
+    //for test gameOver
+//    private void generateGameOver(){
+//        for (int i = 0; i < 4; i++){
+//            for (int j = 3; j >=0; j--) {
+//                gameboard[i][j]=i+j+1>10?1:i+j+1;
+//            }
+//        }
+//        score+=3;s
+//    }
 
 
 

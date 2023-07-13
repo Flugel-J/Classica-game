@@ -1,26 +1,19 @@
 package com.example.classicalgames.activities;
-
-import static android.app.PendingIntent.getActivity;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.CellDAO;
 import com.example.classicalgames.contracts.Database2048;
@@ -29,8 +22,6 @@ import com.example.classicalgames.contracts.Do2048Contract;
 import com.example.classicalgames.contracts.Menu;
 import com.example.classicalgames.models.Cell;
 import com.example.classicalgames.presenters.Do2048Presenter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Activity2048 extends AppCompatActivity implements Do2048Contract.View,gameMenu_2048.NoticeDialogListener{
@@ -202,15 +193,18 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     }
 
     @Override
-    public void settingMenu(DialogFragment dialog) {
+    public void settingMenu(DialogFragment dialog,Menu menu) {
         dialog.dismiss();
         gameMenu_2048 menu_2048 = gameMenu_2048.newInstance(Menu.SettingMenu);
         menu_2048.setCancelable(false);
         Bundle args = new Bundle();
         args.putSerializable("menu",Menu.SettingMenu);
         args.putFloat("volume",volume);
+        args.putSerializable("destinationMenu",menu);
         menu_2048.setArguments(args);
         menu_2048.show(getSupportFragmentManager(),"Setting");
+
+
     }
 
     private Animation popUpAnimation() {
