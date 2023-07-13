@@ -3,11 +3,15 @@ package com.example.classicalgames.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.R;
@@ -29,31 +33,57 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         setContentView(R.layout.activity_main);
 
         inputname = findViewById(R.id.text_inputname);
-        enterName = findViewById(R.id.enter_name);
+        ImageView enterName = findViewById(R.id.enter_name);
+        //enterName = findViewById(R.id.enter_name);
         //am thanh
         sound = findViewById(R.id.btn_sound);
-
         mediaPlayer = MediaPlayer.create(this, R.raw.sound_background);
+
         sound.setOnClickListener(new View.OnClickListener() {
+            boolean isSoundOn = false;
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
                 mediaPlayer.setLooping(true);
+
+
+                if (isSoundOn) {
+                    // Tắt âm thanh
+                    mediaPlayer.pause();
+                    isSoundOn = false;
+                } else {
+                    // Bật âm thanh
+                    mediaPlayer.start();
+                    mediaPlayer.setLooping(true);
+                    isSoundOn = true;
+                }
             }
         });
         //ket thuc am thanh
 
 
+//nhap ten
+        EditText text_inputname = findViewById(R.id.text_inputname);
+        ImageView imageView = findViewById(R.id.enter_name);
 
-        presenter = new DoMainPresenter(this);
-
-        enterName.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = inputname.getText().toString();
-                presenter.processName(name);
+                String name = text_inputname.getText().toString();
+                String greeting = "Hello " + name;
+
+                // Hiển thị "Hello + tên"
+                text_inputname.setText(greeting);
+                text_inputname.setEnabled(false); // Vô hiệu hóa EditText
+
             }
         });
+
+
+
+
+
+// ket thuc nhap ten
 
     }
     //ket thuc ham onCreate
