@@ -1,12 +1,19 @@
 package com.example.classicalgames.presenters;
 
 
+import android.content.Context;
 import android.util.Log;
+
+import androidx.room.Room;
+
+import com.example.classicalgames.contracts.CellDAO;
+import com.example.classicalgames.contracts.Database2048;
 import com.example.classicalgames.contracts.Direction;
 import com.example.classicalgames.contracts.Do2048Contract;
 import com.example.classicalgames.models.Cell;
 import com.example.classicalgames.models.CellsArray;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +24,7 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     private int[][] gameboard;//[x][y]
     private CellsArray cellsArray;
     private int score;
+    private int[] newCellsLocation;
     public Do2048Presenter(Do2048Contract.View view) {
         this.view = view;
         cellsArray = new CellsArray();
@@ -26,50 +34,58 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     @Override
     public void start() {
         score=0;
-        gameboard = new int[4][4];
+        gameboard= new int[4][4];
         addNewCell();
         //generateGameOver();
-        view.Display(change(),score);
+        view.Display(change(),score,newCellsLocation);
     }
     //update call every swipe
     @Override
     public void update(Direction direction) {
-        change_matrix(direction);
+        changeMatrix(direction);
         addNewCell();
         if(totalSpareBlock()==0){
             if(checkGameOver()) {
                 view.gameOver(score);
             }
         }
-        view.Display(change(),score);
+        view.Display(change(),score,newCellsLocation);
     }
 
     @Override
-    public void loadSaved(List<Cell> c) {
+    public void loadSaved(List<Cell> cells) {
         gameboard = new int[4][4];
-        for(Cell cell : c){
+        for(Cell cell : cells){
             gameboard[cell.getX()][cell.getY()]=cell.getValue();
-            score+=cell.getValue();
+            Log.d("loadSaved","cell:"+cell.getKey()+" X:"+cell.getX()+" Y:"+cell.getY()+" Value:"+cell.getValue());
         }
-        view.Display(change(),score);
-    }
-
-    @Override
-    public List<Cell> savedCurrentGame() {
-        int key=1;
-        List<Cell> list = new ArrayList<>();
         for (int i = 0; i < gameboard.length; i++) {
             for (int j = 0; j < gameboard[i].length; j++) {
+                    score+=gameboard[i][j];
+            }
+        }
+        view.Display(change(),score,null);
+    }
+
+    @Override
+    public void savedCurrentGame(Context context) {
+        List<Cell> list = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 if(gameboard[i][j]!=0) {
                     Cell c = cellsArray.search(gameboard[i][j]);
                     c.setX(i);
                     c.setY(j);
                     list.add(c);
+                    Log.d("ReturnSaved"," X:"+c.getX()+" Y:"+c.getY()+" Value:"+c.getValue());
                 }
             }
-
+                Database2048 db = Room.databaseBuilder(context,
+                    Database2048.class, "saveGame2048").build();
+            CellDAO cellDAO = db.cellDAO();
+            for(Cell cell:list)
+                cellDAO.insertAll(cell);
         }
-        return list;
     }
 
     private Cell[][] change(){
@@ -92,7 +108,6 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
                 }
             }
         }
-        Log.d("spare",index+"");
         return index;
     }
     private void addNewCell(){
@@ -101,24 +116,26 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         totalBlockGenerate = r.nextInt(maxBlockPerTurn)+1;
         if(totalBlockGenerate>totalSpareBlock)
             totalBlockGenerate=totalSpareBlock;
+        newCellsLocation = new int[totalBlockGenerate];
         for (int i = 1; i <= totalBlockGenerate; i++) {
             int c;
             if (r.nextBoolean())
                 c=1;
             else
                 c=2;
-            score +=c;
+            score+=c;
             int rand = r.nextInt(totalSpareBlock);
             int pos = position(rand);
+            newCellsLocation[i-1]=pos;
             //Log.d("block"," At:"+pos);
             gameboard[pos/10][pos%10]=c;
         }
+
     }
     private void swipeLeft(){
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if(gameboard[i][j]!=0){
-
                     for (int k = j + 1; k < 4; k++) {
                         if(gameboard[i][k]!=0) {
                             if (gameboard[i][j] == gameboard[i][k]) {
@@ -248,7 +265,7 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
         }
     }
 
-    private void change_matrix(Direction direction) {           //plus matrix in each direction holy shit
+    private void changeMatrix(Direction direction) {           //plus matrix in each direction holy shit
         switch (direction) {
             case Left:
                 swipeLeft();
