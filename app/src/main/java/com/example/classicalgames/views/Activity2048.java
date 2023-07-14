@@ -1,4 +1,4 @@
-package com.example.classicalgames.activities;
+package com.example.classicalgames.views;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
@@ -24,7 +24,7 @@ import com.example.classicalgames.models.Cell;
 import com.example.classicalgames.presenters.Do2048Presenter;
 import java.util.List;
 
-public class Activity2048 extends AppCompatActivity implements Do2048Contract.View,gameMenu_2048.NoticeDialogListener{
+public class Activity2048 extends AppCompatActivity implements Do2048Contract.View, gameMenu2048.NoticeDialogListener{
     Do2048Contract.Presenter presenter;
     LinearLayout gameBoard;
     TextView playerScore;
@@ -45,13 +45,13 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         int highscore;
         highscore= sharedPref.getInt("HighScore",0);
         highScore.setText(highscore+"");
-        gameMenu_2048 menu_2048 = gameMenu_2048.newInstance(Menu.StartMenu);
+        gameMenu2048 menu_2048 = gameMenu2048.newInstance(Menu.StartMenu);
         menu_2048.setCancelable(false);
         menu_2048.show(getSupportFragmentManager(),"2048Menu");
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameMenu_2048 menu = gameMenu_2048.newInstance(Menu.StopMenu);
+                gameMenu2048 menu = gameMenu2048.newInstance(Menu.StopMenu);
                 menu.show(getSupportFragmentManager(),"pauseMenu");
             }
         });
@@ -92,9 +92,8 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     @Override
     public void Display(Cell array[][],int score, int[] newCellLocation) {
         playerScore.setText(score+"");
-
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
+            for (int j = 0; j < array[i].length; j++){
                 ImageView imageView = findCoordinator(i, j);
                 if (array[i][j].getValue() != 0) {
                     imageView.setImageResource(array[i][j].getSource());
@@ -124,7 +123,7 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         mediaPlayer.stop();
         mediaPlayer = MediaPlayer.create(this, R.raw.game_over_event_sound);
         mediaPlayer.start();
-        gameMenu_2048 menu_2048 = gameMenu_2048.newInstance(Menu.GameOverMenu,"Score "+score);
+        gameMenu2048 menu_2048 = gameMenu2048.newInstance(Menu.GameOverMenu,"Score "+score);
         menu_2048.setCancelable(false);
         menu_2048.show(getSupportFragmentManager(),"2048Menu");
     }
@@ -183,6 +182,10 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     @Override
     public void newGame(DialogFragment dialog) {
         dialog.dismiss();
+        mediaPlayer.stop();
+        mediaPlayer = MediaPlayer.create(this, R.raw.funky_town);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
         presenter.start();
     }
 
@@ -195,7 +198,7 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     @Override
     public void settingMenu(DialogFragment dialog,Menu menu) {
         dialog.dismiss();
-        gameMenu_2048 menu_2048 = gameMenu_2048.newInstance(Menu.SettingMenu);
+        gameMenu2048 menu_2048 = gameMenu2048.newInstance(Menu.SettingMenu);
         menu_2048.setCancelable(false);
         Bundle args = new Bundle();
         args.putSerializable("menu",Menu.SettingMenu);
@@ -203,8 +206,6 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         args.putSerializable("destinationMenu",menu);
         menu_2048.setArguments(args);
         menu_2048.show(getSupportFragmentManager(),"Setting");
-
-
     }
 
     private Animation popUpAnimation() {

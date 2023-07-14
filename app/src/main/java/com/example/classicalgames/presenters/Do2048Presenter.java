@@ -309,7 +309,7 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
 //                gameboard[i][j]=i+j+1>10?1:i+j+1;
 //            }
 //        }
-//        score+=3;s
+//        score+=3;
 //    }
 
 

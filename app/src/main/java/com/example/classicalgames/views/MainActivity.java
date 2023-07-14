@@ -1,22 +1,17 @@
-package com.example.classicalgames.activities;
+package com.example.classicalgames.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.R;
-import com.example.classicalgames.presenters.DoMainPresenter;
-import com.example.classicalgames.contracts.Menu;
 
 
 public class MainActivity extends AppCompatActivity implements DoMainContract.View{

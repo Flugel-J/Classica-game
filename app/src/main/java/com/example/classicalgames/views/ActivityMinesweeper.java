@@ -1,4 +1,4 @@
-package com.example.classicalgames.activities;
+package com.example.classicalgames.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 

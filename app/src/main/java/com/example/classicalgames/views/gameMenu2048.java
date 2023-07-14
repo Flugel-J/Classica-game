@@ -1,14 +1,11 @@
-package com.example.classicalgames.activities;
+package com.example.classicalgames.views;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.location.GnssAntennaInfo;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
@@ -20,10 +17,8 @@ import android.widget.TextView;
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.Menu;
 
-import java.util.Objects;
 
-
-public class gameMenu_2048 extends DialogFragment {
+public class gameMenu2048 extends DialogFragment {
     private Button btnMenu1;
     private Button btnMenu2;
     private Button btnMenu3;
@@ -34,12 +29,12 @@ public class gameMenu_2048 extends DialogFragment {
     private float currentVol;
 
     NoticeDialogListener listener;
-    public static gameMenu_2048 newInstance(Menu menu, String... score) {
+    public static gameMenu2048 newInstance(Menu menu, String... score) {
         Bundle args = new Bundle();
         args.putSerializable("menu", menu);
         if(score.length>0)
             args.putString("score",score[0]);
-        gameMenu_2048 f = new gameMenu_2048();
+        gameMenu2048 f = new gameMenu2048();
         f.setArguments(args);
         return f;
     }
@@ -65,19 +60,19 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.loadSavedGame(gameMenu_2048.this);
+                        listener.loadSavedGame(gameMenu2048.this);
                     }
                 });
                 btnMenu2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.newGame(gameMenu_2048.this);
+                        listener.newGame(gameMenu2048.this);
                     }
                 });
                 btnMenu3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.settingMenu(gameMenu_2048.this,menu);
+                        listener.settingMenu(gameMenu2048.this,menu);
                    }
                 });
 
@@ -97,7 +92,7 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.saveAndExit(gameMenu_2048.this);
+                        listener.saveAndExit(gameMenu2048.this);
                     }
                 });
                 btnMenu3.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +104,7 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.settingMenu(gameMenu_2048.this,menu);
+                        listener.settingMenu(gameMenu2048.this,menu);
                     }
                 });
                 break;
@@ -122,7 +117,7 @@ public class gameMenu_2048 extends DialogFragment {
                 btnMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.newGame(gameMenu_2048.this);
+                        listener.newGame(gameMenu2048.this);
                     }
                 });
                 btnMenu2.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +137,7 @@ public class gameMenu_2048 extends DialogFragment {
                 volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                        listener.changeVolume(gameMenu_2048.this,i);
+                        listener.changeVolume(gameMenu2048.this,i);
                     }
 
                     @Override
@@ -163,7 +158,7 @@ public class gameMenu_2048 extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if(getArguments().getSerializable("destinationMenu")==Menu.StartMenu) {
-                            gameMenu_2048 menu_2048 = gameMenu_2048.newInstance(Menu.StartMenu);
+                            gameMenu2048 menu_2048 = gameMenu2048.newInstance(Menu.StartMenu);
                             menu_2048.setCancelable(false);
                             menu_2048.show(getParentFragmentManager(), "2048Menu");
                         }

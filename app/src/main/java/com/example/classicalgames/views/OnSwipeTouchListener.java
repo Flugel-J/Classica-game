@@ -1,4 +1,4 @@
-package com.example.classicalgames.activities;
+package com.example.classicalgames.views;
 
 import android.content.Context;
 import android.view.GestureDetector;

@@ -7,7 +7,7 @@
     android:background="#A4D5D2C8"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context=".activities.Activity2048">
+    tools:context=".views.Activity2048">
 
     <ImageView
         android:id="@+id/img_pause"

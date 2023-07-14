@@ -13,13 +13,13 @@
         android:theme="@style/Theme.ClassicalGames"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ActivityMinesweeper"
+            android:name=".views.ActivityMinesweeper"
             android:exported="false" />
         <activity
-            android:name=".activities.Activity2048"
+            android:name=".views.Activity2048"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
