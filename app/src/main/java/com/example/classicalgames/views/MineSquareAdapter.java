@@ -18,8 +18,8 @@ import java.util.List;
 public class MineSquareAdapter extends ArrayAdapter<MineSquare> {
 
     int imv_width;
-    public MineSquareAdapter(@NonNull Context context, List<MineSquare> courseModelArrayList, int itemWidth) {
-        super(context, 0, courseModelArrayList);
+    public MineSquareAdapter(@NonNull Context context, List<MineSquare> mineSquareArrayList, int itemWidth) {
+        super(context, 0, mineSquareArrayList);
         imv_width = itemWidth;
     }
 
@@ -33,12 +33,17 @@ public class MineSquareAdapter extends ArrayAdapter<MineSquare> {
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.minesweeper_mine_square, parent, false);
         }
 
-//        MineSquare mineSquare = getItem(position);
+        MineSquare mineSquare = getItem(position);
         ImageView imv_mine_square = listitemView.findViewById(R.id.idImvMineSquare);
         imv_mine_square.getLayoutParams().height = imv_width;
         imv_mine_square.getLayoutParams().width = imv_width;
 
-        imv_mine_square.setImageResource(R.drawable.minesweeper_square_blank);
+        if (mineSquare.isMine()) {
+            imv_mine_square.setImageResource(R.drawable.minesweeper_square_mine);
+        } else {
+            imv_mine_square.setImageResource(R.drawable.minesweeper_square_blank);
+        }
+
         return listitemView;
     }
 }

@@ -97,7 +97,7 @@
     <LinearLayout
         android:id="@+id/linearlayout_gameboard"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="600dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 

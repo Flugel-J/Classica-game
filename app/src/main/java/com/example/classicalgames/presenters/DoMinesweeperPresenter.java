@@ -43,7 +43,9 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
                 mineBoard.setTotalMine(10);
                 mineBoard.setNumberOfMine(10);
 
-                mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard);
+                mineSquareList = GenerateMineSquareList(9, 9, mineSquareList);
+
+                mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard, mineSquareList);
                 break;
             case "medium16x16Area40Mines":
                 numberOfCluster = 4;
@@ -53,7 +55,9 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
                 mineBoard.setTotalMine(40);
                 mineBoard.setNumberOfMine(40);
 
-                mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard);
+                mineSquareList = GenerateMineSquareList(16, 16, mineSquareList);
+
+                mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard, mineSquareList);
 
                 break;
             case "hard16x30Area90Mines":
@@ -64,10 +68,19 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
                 mineBoard.setTotalMine(99);
                 mineBoard.setNumberOfMine(99);
 
-                mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard);
+                mineSquareList = GenerateMineSquareList(16, 30, mineSquareList);
+
+                mineSquareList = RandomMineIntoClusterByDifficultLevel(numberOfCluster, mineBoard, mineSquareList);
                 break;
         }
 
+        return mineSquareList;
+    }
+
+    private List<MineSquare> GenerateMineSquareList(int column, int row, List<MineSquare> mineSquareList) {
+        for (int i = 0; i < column * row; i++) {
+            mineSquareList.add(new MineSquare());
+        }
         return mineSquareList;
     }
 
@@ -78,8 +91,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
         return mineSquareList;
     }
 
-    private List<MineSquare> RandomMineIntoClusterByDifficultLevel(int numberOfCluster, MinesweeperBoard minesweeperBoard) {
-        List<MineSquare> mineSquareList = new ArrayList<>();
+    private List<MineSquare> RandomMineIntoClusterByDifficultLevel(int numberOfCluster, MinesweeperBoard minesweeperBoard, List<MineSquare> mineSquareList) {
         int horizonSizeOfCluster = minesweeperBoard.getNumberOfColumn() / numberOfCluster;
         int numberOfMineInCluster = minesweeperBoard.getTotalMine() / numberOfCluster;
         int numberOfRemainedMine = minesweeperBoard.getTotalMine() - numberOfMineInCluster * numberOfCluster;
@@ -88,15 +100,15 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
         //loop through each cluster of Minesweeper board
         for (int clusterIndex = 0; clusterIndex < numberOfCluster; clusterIndex++) {
             int loopTime = 1;
-            //case total mine equal or lesser than number of column in minesweeper board
-            if (minesweeperBoard.getTotalMine() <= minesweeperBoard.getNumberOfColumn()) {
+            //case divided number of total mine divide for cluster equal or lesser than number of column in minesweeper board
+            if (minesweeperBoard.getTotalMine() / numberOfCluster <= minesweeperBoard.getNumberOfColumn()) {
                 mineSquareList = putRandomOneMineIntoEachColumn(clusterIndex,
                         horizonSizeOfCluster,
                         loopTime,
                         minesweeperBoard,
                         mineSquareList,
                         numberOfMineInCluster);
-            } else { //case total mine more than number of column in minesweeper board
+            } else { //case divided number of total mine divide for cluster more than number of column in minesweeper board
                 mineSquareList = putRandomMultipleMineIntoEachColumn(clusterIndex,
                         horizonSizeOfCluster,
                         loopTime,
@@ -119,6 +131,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
                                                             MinesweeperBoard minesweeperBoard,
                                                             List<MineSquare> mineSquareList,
                                                             int numberOfMineInCluster) {
+        List<MineSquare> mineSquaresListOfMine = new ArrayList<>();
         //loop through each column in cluster
         for (int columnIndex = clusterIndex * horizonSizeOfCluster; loopTime <= horizonSizeOfCluster; loopTime += 1) {
             Random random = new Random();
@@ -127,14 +140,44 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
             mineSquare.setX(columnIndex);
             columnIndex += 1;
             mineSquare.setY(random.nextInt(minesweeperBoard.getNumberOfRow()));
-            mineSquare.setMine(true);
-
-            mineSquareList.add(mineSquare);
+//            example for get index algorithm in list base on x and y
+//            x=0, y=1 i=1
+//            x=1, y=1 i=7
+//            x=2, y=2 i=14
+//            row = 3, column = 6
+//            i == (x)*column+y
+            mineSquareList.get(mineSquare.getX() * minesweeperBoard.getNumberOfColumn() + mineSquare.getY()).setMine(true);
 
             numberOfMineInCluster -= 1;
             if (numberOfMineInCluster == 0) {
                 break;
             }
+        }
+
+        return mineSquareList;
+    }
+
+    private List<MineSquare> addMineIntoList(List<MineSquare> mineSquareList, List<MineSquare> mineSquaresListOfMine, MinesweeperBoard minesweeperBoard) {
+        int totalSquare = minesweeperBoard.getNumberOfColumn() * minesweeperBoard.getNumberOfRow();
+        int squareX = 0;
+        int squareY = 0;
+
+        for (int i = 0; i < totalSquare; i++) {
+            MineSquare mineSquare = new MineSquare();
+            mineSquare.setX(squareX);
+            mineSquare.setY(squareY);
+            mineSquare.setMine(false);
+
+            //check if this mine square has mine or not
+            for (MineSquare mineSquareHasMine :
+                    mineSquaresListOfMine) {
+                if (mineSquare.getX() == mineSquareHasMine.getX() && mineSquare.getY() == mineSquareHasMine.getY()) {
+                    mineSquare.setMine(true);
+                }
+            }
+            mineSquareList.add(mineSquare);
+            squareX += 1;
+            squareY += 1;
         }
         return mineSquareList;
     }
