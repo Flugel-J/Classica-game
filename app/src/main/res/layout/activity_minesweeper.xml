@@ -6,66 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".views.ActivityMinesweeper">
 
-    <Button
-        android:id="@+id/tv_bomb_flag"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearlayout_menu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="25dp"
-        android:text="Flag"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_mine_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="43dp"
-        android:text="mineCount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_play_time_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="14dp"
-        android:text="playTimeCount"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_mine_count" />
+            <TextView
+                android:id="@+id/tv_play_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Play Time"
+                android:textAlignment="center" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="99dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/minesweeper_smile" />
+            <TextView
+                android:id="@+id/tv_play_time_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="playTimeCount"
+                android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/btn_difficult_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="11dp"
-        android:text="Difficult"
-        app:layout_constraintEnd_toStartOf="@+id/tv_bomb_flag"
-        app:layout_constraintTop_toBottomOf="@+id/tv_play_time_count" />
+            <TextView
+                android:id="@+id/tv_mine_remain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mine Remain"
+                android:textAlignment="center" />
 
-    <GridView
-        android:id="@+id/gridview_minesweeper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:horizontalSpacing="1dp"
-        android:verticalSpacing="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/tv_mine_remain_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="mine count"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imv_face_emotion"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/minesweeper_smile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_difficult_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Difficult" />
+
+            <Button
+                android:id="@+id/tv_bomb_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Flag" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_gameboard"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <GridView
+            android:id="@+id/gridview_minesweeper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="1dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
