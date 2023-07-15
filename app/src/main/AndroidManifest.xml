@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ClassicalGames"
         tools:targetApi="31">
         <activity
+            android:name=".views.gameLatbai"
+            android:exported="false" />
+        <activity
             android:name=".views.ActivityMinesweeper"
             android:exported="false" />
         <activity
