@@ -224,7 +224,7 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
     @Override
     protected void onStop() {
         super.onStop();
-        mediaPlayer.release();
-        mediaPlayer=null;
+        if(mediaPlayer!=null)
+            mediaPlayer.release();
     }
 }

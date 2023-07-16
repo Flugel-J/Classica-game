@@ -192,7 +192,7 @@ public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContrac
     @Override
     protected void onStop() {
         super.onStop();
-        mediaPlayer.release();
-        mediaPlayer=null;
+        if(mediaPlayer!=null)
+            mediaPlayer.release();
     }
 }

@@ -4,6 +4,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -11,6 +20,7 @@ import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -19,6 +29,8 @@ import com.example.classicalgames.contracts.Menu;
 
 
 public class gameMenu2048 extends DialogFragment {
+    private ImageView header;
+    private TextView txt_header;
     private Button btnMenu1;
     private Button btnMenu2;
     private Button btnMenu3;
@@ -26,9 +38,10 @@ public class gameMenu2048 extends DialogFragment {
     private TextView score;
     private SeekBar volume;
     private Menu menu;
-    private float currentVol;
 
+    private float currentVol;
     NoticeDialogListener listener;
+
     public static gameMenu2048 newInstance(Menu menu, String... score) {
         Bundle args = new Bundle();
         args.putSerializable("menu", menu);
@@ -50,6 +63,7 @@ public class gameMenu2048 extends DialogFragment {
         btnMenu4 = view.findViewById(R.id.btn_4);
         score = view.findViewById(R.id.txt_score);
         volume = view.findViewById(R.id.sb_volume);
+
         menu =(Menu)getArguments().get("menu");
         switch (menu) {
             case StartMenu:
@@ -166,6 +180,25 @@ public class gameMenu2048 extends DialogFragment {
                     }
                 });
                 break;
+            case HowToPlayMenu:
+                btnMenu1.setText("Return");
+                btnMenu2.setVisibility(View.GONE);
+                btnMenu3.setVisibility(View.GONE);
+                btnMenu4.setVisibility(View.GONE);
+                header = view.findViewById(R.id.menuHeader);
+                txt_header = view.findViewById(R.id.txt_menuHeader);
+                header.setImageResource(0);
+                txt_header.setText("How to play");
+                score.setText(R.string.howToPlay);
+
+                score.setTextSize(20);
+                btnMenu1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dismiss();
+                    }
+                });
+
         }
         builder.setView(view);
         return builder.create();
@@ -181,14 +214,15 @@ public class gameMenu2048 extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        // Verify that the host activity implements the callback interface
-        try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (NoticeDialogListener) context;
 
-        } catch (ClassCastException e) {
-            throw new ClassCastException();
-        }
+            // Verify that the host activity implements the callback interface
+            try {
+                // Instantiate the NoticeDialogListener so we can send events to the host
+                listener = (NoticeDialogListener) context;
+
+            } catch (ClassCastException e) {
+
+            }
+
     }
-
 }

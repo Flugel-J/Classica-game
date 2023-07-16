@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.classicalgames.contracts.DoMainContract;
 import com.example.classicalgames.R;
+import com.example.classicalgames.contracts.Menu;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
     private Button sound;
 
     private MediaPlayer mediaPlayer;
+    private Button howToPlay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +126,15 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
             }
         });
 // ket thuc dau hoi
+        //how to play
+        howToPlay = findViewById(R.id.howtoplay);
+        howToPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameMenu2048 menu = gameMenu2048.newInstance(Menu.HowToPlayMenu);
+                menu.show(getSupportFragmentManager(),"HowToPlay");
+            }
+        });
 
     }
     //ket thuc ham onCreate
@@ -159,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
     @Override
     protected void onStop() {
         super.onStop();
-        mediaPlayer.release();
-        mediaPlayer=null;
+        if(mediaPlayer!=null)
+            mediaPlayer.release();
     }
 
 }
