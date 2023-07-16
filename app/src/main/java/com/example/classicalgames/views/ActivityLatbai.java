@@ -3,6 +3,7 @@ package com.example.classicalgames.views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContract.view {
     DoLatBaiContract.presenter l;
-
+    MediaPlayer mediaPlayer;
     int score = 0;
     List<latbai> capBai = new ArrayList<>();
     @Override
@@ -28,6 +29,9 @@ public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContrac
         l=new DoLatBaiPresenter(this);
         l.taoGame();
         l.chaoBai();
+        mediaPlayer = MediaPlayer.create(this, R.raw.latbai);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
 
         ImageView im00 = findViewById(R.id.im00);
         ImageView im01 = findViewById(R.id.im01);
