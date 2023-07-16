@@ -4,4 +4,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="howToPlay">
+        <b>Lật Bài\n</b>
+        <p>Mục tiêu chính của người chơi trong game lật bài là sự nhuần nhuyễn sử dụng trí nhớ siêu
+            phàm của người chơi để ghi nhớ các ô mà đã lật để từ đó có thể
+            chiến thắng được game một cách dễ dàng.\n \n
+        </p>
+        <b>2048\n</b>
+        <p>Mục tiêu chính của người chơi trong 2048 là kết hợp các ô số để tạo ra ô có giá trị là 2048.
+            Tuy nhiên, người chơi có thể tiếp tục chơi sau khi đạt được ô 2048 để ghi điểm cao hơn
+            và đạt được các ô có giá trị lớn hơn.\n \n
+        </p>
+        <b>Minesweeper\n</b>
+        <p>Là một trò chơi trí tuệ nổi tiếng và phổ biến trên máy tính. Trò chơi được đặt trên một
+            lưới ô vuông, và mục tiêu của người chơi là phá hết tất cả các ô trống mà không chạm
+            vào các ô chứa mìn.\n \n
+        </p>
+        <b>TicTacToe\n</b>
+        <p>Mục tiêu của người chơi là đạt được 3 ký hiệu của mình liên tiếp trên hàng ngang, hàng dọc
+            hoặc đường chéo trên bảng. Khi một người chơi hoàn thành được một hàng 3 ký hiệu của mình,
+            người đó sẽ chiến thắng.\n \n
+        </p>
+    </string>
 </resources>
