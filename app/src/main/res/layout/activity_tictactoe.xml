@@ -13,7 +13,7 @@
         android:text="Player One"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         />
