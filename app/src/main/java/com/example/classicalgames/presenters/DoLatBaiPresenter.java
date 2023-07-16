@@ -1,16 +1,22 @@
 package com.example.classicalgames.presenters;
 
 import com.example.classicalgames.R;
+import com.example.classicalgames.contracts.DoLatBaiContract;
 import com.example.classicalgames.models.latbai;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class latBaiPresenter {
+public class DoLatBaiPresenter implements DoLatBaiContract.presenter {
     private List<latbai> bai = new ArrayList<>();
+    DoLatBaiContract.view v ;
+
+    public DoLatBaiPresenter(DoLatBaiContract.view v) {
+        this.v = v;
+    }
+
     latbai l1 = new latbai(1,R.drawable.hinhcute1);
     latbai l2 = new latbai(2,R.drawable.hinhcute2);
     latbai l3 = new latbai(3,R.drawable.hinhcute3);
@@ -39,10 +45,7 @@ public class latBaiPresenter {
         bai.add(l8);
 
     }
-    public int taoRanDom(){
-        Random r = new Random();
-        return (r.nextInt(16));
-    }
+
     public void chaoBai(){
         Collections.shuffle(bai);
     }

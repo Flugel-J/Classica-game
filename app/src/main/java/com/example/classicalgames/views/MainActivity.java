@@ -93,7 +93,10 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         startActivity(intent);
     }
 
-
+    public void onClickedlatbai(View view){
+        Intent intent = new Intent(this,ActivityLatbai.class);
+    startActivity(intent);
+    }
     @Override
     public void displayGreeting(String greeting) {
         Toast.makeText(this, greeting, Toast.LENGTH_SHORT).show();
@@ -104,4 +107,5 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
         mediaPlayer.release();
         mediaPlayer=null;
     }
+
 }

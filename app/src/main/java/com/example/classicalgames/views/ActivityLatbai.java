@@ -4,24 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.classicalgames.R;
+import com.example.classicalgames.contracts.DoLatBaiContract;
 import com.example.classicalgames.models.latbai;
-import com.example.classicalgames.presenters.latBaiPresenter;
+import com.example.classicalgames.presenters.DoLatBaiPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class gameLatbai extends AppCompatActivity {
-    latBaiPresenter l = new latBaiPresenter();
+public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContract.view {
+    DoLatBaiContract.presenter l;
+
     int score = 0;
     List<latbai> capBai = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_latbai);
+        l=new DoLatBaiPresenter(this);
         l.taoGame();
         l.chaoBai();
 
@@ -44,121 +48,129 @@ public class gameLatbai extends AppCompatActivity {
         im00.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im00.setImageResource( latBai(0,00));
+                 latBai(0,00);
             }
         });
         im01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im01.setImageResource( latBai(1,01));
+                 latBai(1,01);
             }
         });
         im02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im02.setImageResource( latBai(2,02));
+                 latBai(2,02);
             }
         });
         im03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im03.setImageResource( latBai(3,03));
+                 latBai(3,03);
             }
         });
         im10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im10.setImageResource( latBai(4,10));
+                 latBai(4,10);
 
             }
         });
         im11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im11.setImageResource( latBai(5,11));
+                 latBai(5,11);
             }
         });
         im12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im12.setImageResource( latBai(6,12));
+                 latBai(6,12);
             }
         });
         im13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im13.setImageResource( latBai(7,13));
+                 latBai(7,13);
             }
         });
         im20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im20.setImageResource( latBai(8,20));
+                 latBai(8,20);
             }
         });
         im21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im21.setImageResource( latBai(9,21));
+                 latBai(9,21);
             }
         });
         im22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im22.setImageResource( latBai(10,22));
+                 latBai(10,22);
             }
         });
         im23.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im23.setImageResource( latBai(11,23));
+                 latBai(11,23);
             }
         });
         im30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im30.setImageResource( latBai(12,30));
+                 latBai(12,30);
             }
         });
         im31.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im31.setImageResource( latBai(13,31));
+                 latBai(13,31);
             }
         });
         im32.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im32.setImageResource( latBai(14,32));
+                 latBai(14,32);
             }
         });
         im33.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im33.setImageResource( latBai(15,33));
+                 latBai(15,33);
             }
         });
 
     }
-    int latBai(int i,int img){
+    void latBai(int i,int img){
         latbai bai = l.latBai(i);
         bai.setLocation(img);
+        findImage(img).setImageResource(bai.getSource());
         capBai.add(bai);
-        if (capBai.size() == 2){
-            if (capBai.get(0).getId()==capBai.get(1).getId()){
-                score += 1;
-                TextView s  = findViewById(R.id.txt_score);
-                s.setText(score + "");
-                findImage(capBai.get(0).getLocation()).setOnClickListener(null);
-                findImage(capBai.get(1).getLocation()).setOnClickListener(null);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (capBai.size() == 2){
+                    if (capBai.get(0).getId()==capBai.get(1).getId()){
+                        score += 1;
+                        TextView s  = findViewById(R.id.txt_score);
+                        s.setText(score + "");
+                        findImage(capBai.get(0).getLocation()).setOnClickListener(null);
+                        findImage(capBai.get(1).getLocation()).setOnClickListener(null);
+                    }
+                    else {
+                        findImage(capBai.get(0).getLocation()).setImageResource(0);
+                        findImage(capBai.get(1).getLocation()).setImageResource(0);
+                    }
+                    capBai.clear();
+                }
             }
-            else {
-                findImage(capBai.get(0).getLocation()).setImageResource(0);
-                findImage(capBai.get(1).getLocation()).setImageResource(0);
-            }
-            capBai.clear();
-        }
-        return bai.getSource();
+        },1500);
+
+
     }
     ImageView findImage(int i) {
         String id;
