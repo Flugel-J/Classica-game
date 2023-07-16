@@ -9,7 +9,6 @@ public interface DoMinesweeperContract {
     interface Presenter{
         void NewGameByDifficultLevel(String difficult_level);
         List<MineSquare> RandomGenerateMineByDifficultLevel(String difficult_level);
-        List<MineSquare> RandomGenerateMineByMinesweeperBoard(MinesweeperBoard minesweeperBoard);
         boolean IsWin(MinesweeperBoard minesweeperBoard);
         boolean IsMine(MineSquare mineSquare);
         boolean IsFlag(MineSquare mineSquare);
