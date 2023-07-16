@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
     public void onClickedlatbai(View view){
         Intent intent = new Intent(this,ActivityLatbai.class);
     startActivity(intent);
-        finish();
+
     }
 
     public void onClickedTicTacToe(View view){

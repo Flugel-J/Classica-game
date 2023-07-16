@@ -189,4 +189,10 @@ public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContrac
         return findViewById(ResourcesId);
 
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.release();
+        mediaPlayer=null;
+    }
 }
