@@ -175,7 +175,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
         //x=i; y=j;
         for (int y = 0; y < row; y++) {
             for (int x = 0; x < column; x++) {
-                mineSquareList.add(new MineSquare(x, y, 0, false, false));
+                mineSquareList.add(new MineSquare(x, y, 0, false, false, false,false));
             }
         }
         return mineSquareList;
