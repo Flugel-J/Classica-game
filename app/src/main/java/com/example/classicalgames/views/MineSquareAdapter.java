@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.classicalgames.R;
+import com.example.classicalgames.contracts.DoMinesweeperContract;
 import com.example.classicalgames.models.MineSquare;
+import com.example.classicalgames.presenters.DoMinesweeperPresenter;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class MineSquareAdapter extends ArrayAdapter<MineSquare> {
 
     int imv_width;
     ImageView imv_mine_square;
+    DoMinesweeperContract.Presenter minesweeper_presenter = new DoMinesweeperPresenter();
 
     public MineSquareAdapter(@NonNull Context context, List<MineSquare> mineSquareArrayList, int itemWidth) {
         super(context, 0, mineSquareArrayList);
@@ -41,53 +44,6 @@ public class MineSquareAdapter extends ArrayAdapter<MineSquare> {
         imv_mine_square.getLayoutParams().width = imv_width;
         imv_mine_square.setImageResource(R.drawable.minesweeper_square_covered);
 
-        int numberOfMineAround = mineSquare.getNumber_of_mine_around();
-        View finalListitemView = listitemView;
-        listitemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView imageView = finalListitemView.findViewById(R.id.idImvMineSquare);
-                if (!mineSquare.isReveal()) {
-                    revealMineSquare(mineSquare, numberOfMineAround, imageView);
-                }
-            }
-        });
-
         return listitemView;
-    }
-
-    private void revealMineSquare(MineSquare mineSquare, int numberOfMineAround, ImageView imageView) {
-        if (mineSquare.isMine()) {
-            imageView.setImageResource(R.drawable.minesweeper_square_mine);
-        } else if (numberOfMineAround != 0) {
-            switch (numberOfMineAround) {
-                case 1:
-                    imageView.setImageResource(R.drawable.minesweeper_number_1);
-                    break;
-                case 2:
-                    imageView.setImageResource(R.drawable.minesweeper_number_2);
-                    break;
-                case 3:
-                    imageView.setImageResource(R.drawable.minesweeper_number_3);
-                    break;
-                case 4:
-                    imageView.setImageResource(R.drawable.minesweeper_number_4);
-                    break;
-                case 5:
-                    imageView.setImageResource(R.drawable.minesweeper_number_5);
-                    break;
-                case 6:
-                    imageView.setImageResource(R.drawable.minesweeper_number_6);
-                    break;
-                case 7:
-                    imageView.setImageResource(R.drawable.minesweeper_number_7);
-                    break;
-                case 8:
-                    imageView.setImageResource(R.drawable.minesweeper_number_8);
-                    break;
-            }
-        } else {
-            imageView.setImageResource(R.drawable.minesweeper_square_blank);
-        }
     }
 }

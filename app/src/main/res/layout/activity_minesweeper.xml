@@ -124,6 +124,15 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_game_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Game Status"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_menu" />
+
     <LinearLayout
         android:id="@+id/linearlayout_gameboard"
         android:layout_width="match_parent"
@@ -139,122 +148,129 @@
             android:verticalSpacing="1dp" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativelayout_difficult_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:gravity="center"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrainlayout_difficult_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55FFFFFF"
+        android:visibility="invisible">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/relativelayout_difficult_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:text="Minesweeper"
-                android:textAlignment="center" />
+            android:background="#FFFFFF"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Minesweeper"
+                    android:textAlignment="center" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btn_easy_difficult"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:onClick="onClickEasyButton"
-                        android:text="Easy" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/btn_medium_difficult"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:onClick="onClickMediumButton"
-                        android:text="Medium" />
+                        <Button
+                            android:id="@+id/btn_easy_difficult"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:onClick="onClickEasyButton"
+                            android:text="Easy" />
 
-                    <Button
-                        android:id="@+id/btn_hard_difficult"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:onClick="onClickHardButton"
-                        android:text="Hard" />
+                        <Button
+                            android:id="@+id/btn_medium_difficult"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:onClick="onClickMediumButton"
+                            android:text="Medium" />
+
+                        <Button
+                            android:id="@+id/btn_hard_difficult"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:onClick="onClickHardButton"
+                            android:text="Hard" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_row"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="Row" />
+
+                        <SeekBar
+                            android:id="@+id/seek_bar_row"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_colum"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="Column" />
+
+                        <SeekBar
+                            android:id="@+id/seek_bar_column"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_number_of_mine"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="Number of mine" />
+
+                        <SeekBar
+                            android:id="@+id/seek_bar_mine"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btn_custom_difficult"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:onClick="onClickCustomButton"
+                            android:text="Custom" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_row"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Row" />
-
-                    <SeekBar
-                        android:id="@+id/seek_bar_row"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_colum"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Column" />
-
-                    <SeekBar
-                        android:id="@+id/seek_bar_column"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_number_of_mine"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Number of mine" />
-
-                    <SeekBar
-                        android:id="@+id/seek_bar_mine"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content" />
-
-                    <Button
-                        android:id="@+id/btn_custom_difficult"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:onClick="onClickCustomButton"
-                        android:text="Custom" />
-
-                </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
