@@ -19,10 +19,19 @@ public class MineSquare {
         this.isFlag = isFlag;
         this.isMarkedUnknown = isMarkedUnknown;
     }
-    public MineSquare(int x, int y, boolean isMine) {
+    public MineSquare(int x, int y, boolean isFlag, boolean isMine) {
         this.x = x;
         this.y = y;
         this.isMine = isMine;
+        this.isFlag = isFlag;
+    }
+
+    public MineSquare(int x, int y, int number_of_mine_around, boolean isMine, boolean isFlag) {
+        this.x = x;
+        this.y = y;
+        this.number_of_mine_around = number_of_mine_around;
+        this.isMine = isMine;
+        this.isFlag = isFlag;
     }
 
     public int getX() {

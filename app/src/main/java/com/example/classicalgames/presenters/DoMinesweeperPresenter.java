@@ -29,52 +29,153 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
         and not clustered together in one area.
     */
     @Override
-    public List<MineSquare> RandomGenerateMineByDifficultLevel(String difficult_level) {
-        MinesweeperBoard mineBoard = new MinesweeperBoard();
+    public List<MineSquare> RandomGenerateMineByDifficultLevel(MinesweeperBoard minesweeperBoard) {
         List<MineSquare> mineSquareList = new ArrayList<>();
+        String difficult_level = minesweeperBoard.getDifficult_level();
 
         switch (difficult_level) {
             case "beginner9x9Area10Mines":
-                mineBoard.setNumberOfColumn(9);
-                mineBoard.setNumberOfRow(9);
-                mineBoard.setTotalMine(10);
-                mineBoard.setNumberOfMine(10);
-
                 mineSquareList = GenerateMineSquareList(9, 9, mineSquareList);
 
-                mineSquareList = RandomMineIntoGameBoardByDifficultLevel(mineBoard, mineSquareList);
+                mineSquareList = RandomMineIntoGameBoardByDifficultLevel(minesweeperBoard, mineSquareList);
                 break;
             case "medium16x16Area40Mines":
-                mineBoard.setNumberOfColumn(16);
-                mineBoard.setNumberOfRow(16);
-                mineBoard.setTotalMine(40);
-                mineBoard.setNumberOfMine(40);
-
                 mineSquareList = GenerateMineSquareList(16, 16, mineSquareList);
 
-                mineSquareList = RandomMineIntoGameBoardByDifficultLevel(mineBoard, mineSquareList);
+                mineSquareList = RandomMineIntoGameBoardByDifficultLevel(minesweeperBoard, mineSquareList);
 
                 break;
             case "hard16x30Area90Mines":
-                mineBoard.setNumberOfColumn(16);
-                mineBoard.setNumberOfRow(30);
-                mineBoard.setTotalMine(99);
-                mineBoard.setNumberOfMine(99);
-
                 mineSquareList = GenerateMineSquareList(16, 30, mineSquareList);
 
-                mineSquareList = RandomMineIntoGameBoardByDifficultLevel(mineBoard, mineSquareList);
+                mineSquareList = RandomMineIntoGameBoardByDifficultLevel(minesweeperBoard, mineSquareList);
                 break;
         }
 
         return mineSquareList;
     }
 
+    @Override
+    public List<MineSquare> generateNumberAroundMine(List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        for (int i = 0; i < mineSquareList.size(); i++) {
+            if (!mineSquareList.get(i).isMine()) {
+                int numberOfMineAround = countMineAroundSquare(mineSquareList, i, minesweeperBoard);
+                mineSquareList.get(i).setNumber_of_mine_around(numberOfMineAround);
+            }
+        }
+        return mineSquareList;
+    }
+
+    private int countMineAroundSquare(List<MineSquare> mineSquareList, int indexCurrentSquare, MinesweeperBoard minesweeperBoard) {
+        int mineCount = 0;
+        int currentX = mineSquareList.get(indexCurrentSquare).getX();
+        int currentY = mineSquareList.get(indexCurrentSquare).getY();
+
+        MineSquare mineSquareUp = getMineSquareUp(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareUpLeft = getMineSquareUpLeft(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareUpRight = getMineSquareUpRight(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareBelow = getMineSquareBelow(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareBelowLeft = getMineSquareBelowLeft(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareBelowRight = getMineSquareBelowRight(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareLeft = getMineSquareLeft(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+        MineSquare mineSquareRight = getMineSquareRight(indexCurrentSquare, currentX, currentY, mineSquareList, minesweeperBoard);
+
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareUp);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareUpLeft);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareUpRight);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareBelow);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareBelowLeft);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareBelowRight);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareLeft);
+        mineCount = addCountIfMineSquareIsMine(mineCount, mineSquareRight);
+
+        return mineCount;
+    }
+
+    private int addCountIfMineSquareIsMine(int mineCount, MineSquare mineSquare) {
+        if (mineSquare.isMine()) {
+            mineCount += 1;
+        }
+        return mineCount;
+    }
+
+    private MineSquare getMineSquareRight(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentX == (minesweeperBoard.getNumberOfColumn()-1)) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare+1);
+        }
+    }
+
+    private MineSquare getMineSquareLeft(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentX == 0) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare-1);
+        }
+    }
+
+    private MineSquare getMineSquareBelowRight(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentY == (minesweeperBoard.getNumberOfRow()-1)) {
+            return new MineSquare(-1,-1,false,false);
+        } else if (currentX == (minesweeperBoard.getNumberOfColumn()-1)) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare+minesweeperBoard.getNumberOfColumn()+1);
+        }
+    }
+
+    private MineSquare getMineSquareBelowLeft(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentY == (minesweeperBoard.getNumberOfRow()-1)) {
+            return new MineSquare(-1,-1,false,false);
+        } else if (currentX == 0) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare+minesweeperBoard.getNumberOfColumn()-1);
+        }
+    }
+
+    private MineSquare getMineSquareBelow(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentY == (minesweeperBoard.getNumberOfRow()-1)) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare+minesweeperBoard.getNumberOfColumn());
+        }
+    }
+
+    private MineSquare getMineSquareUpRight(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentY == 0) {
+            return new MineSquare(-1,-1,false,false);
+        } else if (currentX == (minesweeperBoard.getNumberOfColumn()-1)) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare-minesweeperBoard.getNumberOfColumn()+1);
+        }
+    }
+
+    private MineSquare getMineSquareUpLeft(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentY == 0) {
+            return new MineSquare(-1,-1,false,false);
+        } else if (currentX == 0) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare-minesweeperBoard.getNumberOfColumn()-1);
+        }
+    }
+
+    private MineSquare getMineSquareUp(int indexCurrentSquare, int currentX, int currentY, List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard) {
+        if (currentY == 0) {
+            return new MineSquare(-1,-1,false,false);
+        } else {
+            return mineSquareList.get(indexCurrentSquare-minesweeperBoard.getNumberOfColumn());
+        }
+    }
+
     private List<MineSquare> GenerateMineSquareList(int column, int row, List<MineSquare> mineSquareList) {
         //x=i; y=j;
-        for (int i = 0; i < column; i++) {
-            for (int j = 0; j < row; j++) {
-                mineSquareList.add(new MineSquare(i, j, false));
+        for (int y = 0; y < row; y++) {
+            for (int x = 0; x < column; x++) {
+                mineSquareList.add(new MineSquare(x, y, 0, false, false));
             }
         }
         return mineSquareList;
@@ -101,7 +202,7 @@ public class DoMinesweeperPresenter implements DoMinesweeperContract.Presenter {
 
     @Override
     public boolean IsWin(MinesweeperBoard minesweeperBoard) {
-        return (minesweeperBoard.getNumberOfMine() == 0);
+        return (minesweeperBoard.getNumberOfRemainMine() == 0);
     }
 
     @Override

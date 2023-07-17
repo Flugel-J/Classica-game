@@ -18,6 +18,7 @@ import java.util.List;
 public class MineSquareAdapter extends ArrayAdapter<MineSquare> {
 
     int imv_width;
+
     public MineSquareAdapter(@NonNull Context context, List<MineSquare> mineSquareArrayList, int itemWidth) {
         super(context, 0, mineSquareArrayList);
         imv_width = itemWidth;
@@ -38,8 +39,37 @@ public class MineSquareAdapter extends ArrayAdapter<MineSquare> {
         imv_mine_square.getLayoutParams().height = imv_width;
         imv_mine_square.getLayoutParams().width = imv_width;
 
+        int numberOfMineAround = mineSquare.getNumber_of_mine_around();
+
         if (mineSquare.isMine()) {
             imv_mine_square.setImageResource(R.drawable.minesweeper_square_mine);
+        } else if (numberOfMineAround != 0) {
+            switch (numberOfMineAround) {
+                case 1:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_1);
+                    break;
+                case 2:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_2);
+                    break;
+                case 3:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_3);
+                    break;
+                case 4:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_4);
+                    break;
+                case 5:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_5);
+                    break;
+                case 6:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_6);
+                    break;
+                case 7:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_7);
+                    break;
+                case 8:
+                    imv_mine_square.setImageResource(R.drawable.minesweeper_number_8);
+                    break;
+            }
         } else {
             imv_mine_square.setImageResource(R.drawable.minesweeper_square_blank);
         }

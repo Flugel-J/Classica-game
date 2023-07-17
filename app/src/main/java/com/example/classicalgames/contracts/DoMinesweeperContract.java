@@ -8,7 +8,8 @@ import java.util.List;
 public interface DoMinesweeperContract {
     interface Presenter{
         void NewGameByDifficultLevel(String difficult_level);
-        List<MineSquare> RandomGenerateMineByDifficultLevel(String difficult_level);
+        List<MineSquare> RandomGenerateMineByDifficultLevel(MinesweeperBoard minesweeperBoard);
+        List<MineSquare> generateNumberAroundMine(List<MineSquare> mineSquareList, MinesweeperBoard minesweeperBoard);
         boolean IsWin(MinesweeperBoard minesweeperBoard);
         boolean IsMine(MineSquare mineSquare);
         boolean IsFlag(MineSquare mineSquare);
