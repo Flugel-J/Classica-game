@@ -396,6 +396,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
             imv_face_emotion.setImageResource(R.drawable.minesweeper_smile);
             MediaPlayer media_win = MediaPlayer.create(this, R.raw.minesweeper_win);
             media_win.start();
+            handler.removeCallbacks(runnable);
         }
     }
 
