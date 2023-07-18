@@ -103,6 +103,22 @@
                 android:onClick="onClickDifficultButton"
                 android:text="Difficult" />
 
+            <TextView
+                android:id="@+id/tv_high_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="High Score"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_high_score_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No high score"
+                android:textAlignment="center" />
+
         </LinearLayout>
 
     </LinearLayout>

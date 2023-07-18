@@ -3,7 +3,9 @@ package com.example.classicalgames.views;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,9 +41,11 @@ public class ActivityMinesweeper extends AppCompatActivity {
     TextView tv_mine_remain_count;
     TextView tv_play_time_count;
     TextView tv_game_status;
+    TextView tv_high_score_value;
     MinesweeperBoard minesweeperBoard;
     List<MineSquare> mineSquaresArrayList;
     MediaPlayer mediaPlayer;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,6 +305,15 @@ public class ActivityMinesweeper extends AppCompatActivity {
     }
 
     private void generateGameboard(MinesweeperBoard minesweeperBoard) {
+        int highscore;
+        sharedPref = this.getSharedPreferences("MinesweeperHighScore", Context.MODE_PRIVATE);
+        highscore = sharedPref.getInt("HighScore", -1);
+        if (highscore == -1) {
+            tv_high_score_value = findViewById(R.id.tv_high_score_value);
+            tv_high_score_value.setText("No high score");
+        } else {
+            tv_high_score_value.setText(highscore + "");
+        }
         mediaPlayer = MediaPlayer.create(this, R.raw.minesweeper_fast_heartbeat);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);
@@ -397,6 +410,13 @@ public class ActivityMinesweeper extends AppCompatActivity {
             MediaPlayer media_win = MediaPlayer.create(this, R.raw.minesweeper_win);
             media_win.start();
             handler.removeCallbacks(runnable);
+            sharedPref = this.getSharedPreferences("MinesweeperHighScore", Context.MODE_PRIVATE);
+            int highscore = sharedPref.getInt("HighScore", -1);
+            if (highscore > seconds || highscore == -1) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("HighScore", seconds);
+                editor.apply();
+            }
         }
     }
 
@@ -440,7 +460,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(mediaPlayer!=null)
+        if (mediaPlayer != null)
             mediaPlayer.release();
     }
 }
