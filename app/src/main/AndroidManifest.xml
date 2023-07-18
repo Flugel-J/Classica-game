@@ -22,6 +22,9 @@
             android:name=".views.Activity2048"
             android:exported="false" />
         <activity
+            android:name=".views.ActivityTictactoe"
+            android:exported="false" />
+        <activity
             android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>

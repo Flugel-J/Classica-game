@@ -9,9 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gametictoctoe.R;
-import com.example.gametictoctoe.contracts.DoTicTacToeContract;
-import com.example.gametictoctoe.presenters.DoTicTacToePresenter;
+import com.example.classicalgames.R;
+import com.example.classicalgames.contracts.DoTicTacToeContract;
+import com.example.classicalgames.presenters.DoTicTacToePresenter;
 
 public class ActivityTictactoe extends AppCompatActivity implements View.OnClickListener, DoTicTacToeContract.view {
     DoTicTacToeContract.presenter presenter;
@@ -25,7 +25,7 @@ public class ActivityTictactoe extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tictactoe);
 
         playerOneScore = (TextView) findViewById(R.id.playerOneScore);
         playerTwoScore = (TextView) findViewById(R.id.playerTwoScore);

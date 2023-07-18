@@ -1,6 +1,6 @@
 package com.example.classicalgames.presenters;
 
-import com.example.gametictoctoe.contracts.DoTicTacToeContract;
+import com.example.classicalgames.contracts.DoTicTacToeContract;
 
 public class DoTicTacToePresenter implements DoTicTacToeContract.presenter {
     DoTicTacToeContract.view view;

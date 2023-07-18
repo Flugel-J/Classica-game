@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements DoMainContract.Vi
     }
 
     public void onClickedTicTacToe(View view){
-        Intent intent = new Intent(this,MainActivity1.class);
+        Intent intent = new Intent(this,ActivityTictactoe.class);
     startActivity(intent);
     }
 

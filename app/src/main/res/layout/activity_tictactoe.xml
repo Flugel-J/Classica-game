@@ -72,6 +72,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="15dp"
+        android:contentDescription="button 0"
         />
     <Button
         android:id="@+id/btn_1"
@@ -83,6 +84,7 @@
         android:textColor="#ffffff"
         app:layout_constraintTop_toTopOf="@+id/btn_0"
         app:layout_constraintLeft_toRightOf="@id/btn_0"
+        android:contentDescription="button 1"
 
         />
     <Button
@@ -95,6 +97,7 @@
         android:textColor="#ffffff"
         app:layout_constraintTop_toTopOf="@+id/btn_1"
         app:layout_constraintLeft_toRightOf="@id/btn_1"
+        android:contentDescription="button 2"
         />
     <Button
         android:id="@+id/btn_3"
@@ -105,6 +108,7 @@
         android:backgroundTint="#413F43"
         app:layout_constraintTop_toBottomOf="@+id/btn_0"
         app:layout_constraintLeft_toLeftOf="@id/btn_0"
+        android:contentDescription="button 3"
         />
     <Button
         android:id="@+id/btn_4"
@@ -115,6 +119,7 @@
         android:backgroundTint="#413F43"
         app:layout_constraintTop_toTopOf="@+id/btn_3"
         app:layout_constraintLeft_toRightOf="@id/btn_3"
+        android:contentDescription="button 4"
         />
     <Button
         android:id="@+id/btn_5"
@@ -125,6 +130,7 @@
         android:backgroundTint="#413F43"
         app:layout_constraintTop_toTopOf="@+id/btn_4"
         app:layout_constraintLeft_toRightOf="@id/btn_4"
+        android:contentDescription="button 5"
         />
     <Button
         android:id="@+id/btn_6"
@@ -135,6 +141,7 @@
         android:backgroundTint="#413F43"
         app:layout_constraintTop_toBottomOf="@+id/btn_3"
         app:layout_constraintLeft_toLeftOf="@id/btn_3"
+        android:contentDescription="button 6"
         />
     <Button
         android:id="@+id/btn_7"
@@ -145,6 +152,7 @@
         android:backgroundTint="#413F43"
         app:layout_constraintTop_toTopOf="@+id/btn_6"
         app:layout_constraintLeft_toRightOf="@id/btn_6"
+        android:contentDescription="button 7"
         />
     <Button
         android:id="@+id/btn_8"
@@ -155,6 +163,7 @@
         android:backgroundTint="#413F43"
         app:layout_constraintTop_toTopOf="@+id/btn_7"
         app:layout_constraintLeft_toRightOf="@id/btn_7"
+        android:contentDescription="button 8"
         />
     <Button
         android:id="@+id/resetGame"
