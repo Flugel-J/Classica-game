@@ -312,6 +312,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
             tv_high_score_value = findViewById(R.id.tv_high_score_value);
             tv_high_score_value.setText("No high score");
         } else {
+            tv_high_score_value = findViewById(R.id.tv_high_score_value);
             tv_high_score_value.setText(highscore + "");
         }
         mediaPlayer = MediaPlayer.create(this, R.raw.minesweeper_fast_heartbeat);
