@@ -38,6 +38,8 @@ public class ActivityMinesweeper extends AppCompatActivity {
     TextView tv_mine_remain_count;
     TextView tv_play_time_count;
     TextView tv_game_status;
+    MinesweeperBoard minesweeperBoard;
+    List<MineSquare> mineSquaresArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
         tv_mine_remain_count = findViewById(R.id.tv_mine_remain_count);
         tv_mine_remain_count.setText("10");
 
-        MinesweeperBoard minesweeperBoard = new MinesweeperBoard();
+        minesweeperBoard = new MinesweeperBoard();
         minesweeperBoard.setNumberOfColumn(9);
         minesweeperBoard.setNumberOfRow(9);
         minesweeperBoard.setTotalMine(10);
@@ -86,7 +88,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
                     int numberOfMineAround = mineSquare.getNumber_of_mine_around();
 
                     if (!mineSquare.isRevealed() && !mineSquare.isFlag()) {
-                        revealMineSquare(mineSquare, numberOfMineAround, imageView);
+                        revealMineSquare(mineSquare, numberOfMineAround, imageView, position);
                         mineSquare.setRevealed(true);
                     }
                 }
@@ -95,7 +97,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
 
     }
 
-    private void revealMineSquare(MineSquare mineSquare, int numberOfMineAround, ImageView imageView) {
+    private void revealMineSquare(MineSquare mineSquare, int numberOfMineAround, ImageView imageView, int position) {
         if (mineSquare.isMine()) {
             handler.removeCallbacks(runnable);
             imageView.setImageResource(R.drawable.minesweeper_square_mine_actived);
@@ -134,6 +136,106 @@ public class ActivityMinesweeper extends AppCompatActivity {
             }
         } else {
             imageView.setImageResource(R.drawable.minesweeper_square_blank);
+//            if (!mineSquare.isRevealed() && !mineSquare.isFlag()) {
+//                revealAllMineNumberAndBlankAroundCurrentBlank(position);
+//            }
+        }
+    }
+
+    private void revealAllMineNumberAndBlankAroundCurrentBlank(int position) {
+        DoMinesweeperContract.Presenter minesweeper_presenter = new DoMinesweeperPresenter();
+        MineSquare mineSquare = mineSquaresArrayList.get(position);
+        int currentX = mineSquare.getX();
+        int currentY = mineSquare.getY();
+
+        MineSquare mineSquareUp = minesweeper_presenter.getMineSquareUp(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareUpLeft = minesweeper_presenter.getMineSquareUpLeft(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareUpRight = minesweeper_presenter.getMineSquareUpRight(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareBelow = minesweeper_presenter.getMineSquareBelow(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareBelowLeft = minesweeper_presenter.getMineSquareBelowLeft(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareBelowRight = minesweeper_presenter.getMineSquareBelowRight(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareLeft = minesweeper_presenter.getMineSquareLeft(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+        MineSquare mineSquareRight = minesweeper_presenter.getMineSquareRight(position, currentX, currentY, mineSquaresArrayList, minesweeperBoard);
+
+        if (
+                (mineSquareUp.getX() >= 0)
+//                        && (mineSquareUp.isBlank() || mineSquareUp.getNumber_of_mine_around() != 0)
+                        && (!mineSquareUp.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position - minesweeperBoard.getNumberOfColumn());
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareUp, mineSquareUp.getNumber_of_mine_around(), imageView, position - minesweeperBoard.getNumberOfColumn());
+            mineSquaresArrayList.get(position - minesweeperBoard.getNumberOfColumn()).setRevealed(true);
+        }
+        if (
+                (mineSquareUpLeft.getX() >= 0)
+//                        && (mineSquareUpLeft.isBlank() || mineSquareUpLeft.getNumber_of_mine_around() != 0)
+                        && (!mineSquareUpLeft.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position - minesweeperBoard.getNumberOfColumn() - 1);
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareUpLeft, mineSquareUpLeft.getNumber_of_mine_around(), imageView, position - minesweeperBoard.getNumberOfColumn() - 1);
+            mineSquaresArrayList.get(position - minesweeperBoard.getNumberOfColumn() - 1).setRevealed(true);
+        }
+        if (
+                (mineSquareUpRight.getX() >= 0)
+//                        && (mineSquareUpRight.isBlank() || mineSquareUpRight.getNumber_of_mine_around() != 0)
+                        && (!mineSquareUpRight.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position - minesweeperBoard.getNumberOfColumn() + 1);
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareUpRight, mineSquareUpRight.getNumber_of_mine_around(), imageView, position - minesweeperBoard.getNumberOfColumn() + 1);
+            mineSquaresArrayList.get(position - minesweeperBoard.getNumberOfColumn() + 1).setRevealed(true);
+        }
+        if (
+                (mineSquareBelow.getX() >= 0)
+//                        && (mineSquareBelow.isBlank() || mineSquareBelow.getNumber_of_mine_around() != 0)
+                        && (!mineSquareBelow.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position + minesweeperBoard.getNumberOfColumn());
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareBelow, mineSquareBelow.getNumber_of_mine_around(), imageView, position + minesweeperBoard.getNumberOfColumn());
+            mineSquaresArrayList.get(position + minesweeperBoard.getNumberOfColumn()).setRevealed(true);
+        }
+        if (
+                (mineSquareBelowLeft.getX() >= 0)
+//                        && (mineSquareBelowLeft.isBlank() || mineSquareBelowLeft.getNumber_of_mine_around() != 0)
+                        && (!mineSquareBelowLeft.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position + minesweeperBoard.getNumberOfColumn() - 1);
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareBelowLeft, mineSquareBelowLeft.getNumber_of_mine_around(), imageView, position + minesweeperBoard.getNumberOfColumn() - 1);
+            mineSquaresArrayList.get(position + minesweeperBoard.getNumberOfColumn() - 1).setRevealed(true);
+        }
+        if (
+                (mineSquareBelowRight.getX() >= 0)
+//                        && (mineSquareBelowRight.isBlank() || mineSquareBelowRight.getNumber_of_mine_around() != 0)
+                        && (!mineSquareBelowRight.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position + minesweeperBoard.getNumberOfColumn() + 1);
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareBelowRight, mineSquareBelowRight.getNumber_of_mine_around(), imageView, position + minesweeperBoard.getNumberOfColumn() + 1);
+            mineSquaresArrayList.get(position + minesweeperBoard.getNumberOfColumn() + 1).setRevealed(true);
+        }
+        if (
+                (mineSquareLeft.getX() >= 0)
+//                        && (mineSquareLeft.isBlank() || mineSquareLeft.getNumber_of_mine_around() != 0)
+                        && (!mineSquareLeft.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position - 1);
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareLeft, mineSquareLeft.getNumber_of_mine_around(), imageView, position - 1);
+            mineSquaresArrayList.get(position - 1).setRevealed(true);
+        }
+        if (
+                (mineSquareRight.getX() >= 0)
+//                        && (mineSquareRight.isBlank() || mineSquareRight.getNumber_of_mine_around() != 0)
+                        && (!mineSquareRight.isMine())
+        ) {
+            View view = mineBoardGridView.getChildAt(position + 1);
+            ImageView imageView = view.findViewById(R.id.idImvMineSquare);
+            revealMineSquare(mineSquareRight, mineSquareRight.getNumber_of_mine_around(), imageView, position + 1);
+            mineSquaresArrayList.get(position + 1).setRevealed(true);
         }
     }
 
@@ -165,19 +267,8 @@ public class ActivityMinesweeper extends AppCompatActivity {
         isMineBoardGridViewClickable = false;
     }
 
-    //switch to place flag mode from reveal mine mode or vice versa
-    public void onClickFlagButton(View view) {
-        TextView tv_flag_mode = findViewById(R.id.tv_flag_mode);
-
-        if (tv_flag_mode.getText().equals("Flag mode off")) {
-
-        }
-    }
-
-    public void onClickCustomButton(View view) {
-    }
-
     public void onClickEasyButton(View view) {
+        setMineRemainToTextView(10);
         isFirstClickOnMinesweeperBoard = true;
         seconds = 0;
         tv_difficult_level = findViewById(R.id.tv_difficult_level);
@@ -185,7 +276,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
 
         closeConstraintLayoutForDifficultMenu();
 
-        MinesweeperBoard minesweeperBoard = new MinesweeperBoard();
+        minesweeperBoard = new MinesweeperBoard();
         minesweeperBoard.setNumberOfColumn(9);
         minesweeperBoard.setNumberOfRow(9);
         minesweeperBoard.setTotalMine(10);
@@ -215,7 +306,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
         int view_width = screen_width / minesweeperBoard.getNumberOfColumn();   //width for imageview
 
         mineBoardGridView = findViewById(R.id.gridview_minesweeper);
-        List<MineSquare> mineSquaresArrayList = new ArrayList<MineSquare>();
+        mineSquaresArrayList = new ArrayList<MineSquare>();
 
         DoMinesweeperContract.Presenter minesweeper_presenter = new DoMinesweeperPresenter();
 
@@ -242,16 +333,62 @@ public class ActivityMinesweeper extends AppCompatActivity {
                 if (mineSquare.isFlag() && !mineSquare.isRevealed()) {
                     mineSquare.setFlag(false);
                     imageView.setImageResource(R.drawable.minesweeper_square_covered);
+                    int mineRemain = getMineRemainFromTextView();
+                    mineRemain += 1;
+                    setMineRemainToTextView(mineRemain);
+                    plusMineToMineRemainOfGameBoard(mineSquare);
                 } else if (!mineSquare.isFlag() && !mineSquare.isRevealed()) {
                     mineSquare.setFlag(true);
                     imageView.setImageResource(R.drawable.minesweeper_square_flag);
+                    int mineRemain = getMineRemainFromTextView();
+                    mineRemain -= 1;
+                    setMineRemainToTextView(mineRemain);
+                    minusMineToMineRemainOfGameBoard(mineSquare);
+                    setWinIfWin();
                 }
                 return false;
             }
         });
     }
 
+    private void setMineRemainToTextView(int mineRemain) {
+        tv_mine_remain_count = findViewById(R.id.tv_mine_remain_count);
+        tv_mine_remain_count.setText(mineRemain + "");
+    }
+
+    private int getMineRemainFromTextView() {
+        int mineRemain = 0;
+        tv_mine_remain_count = findViewById(R.id.tv_mine_remain_count);
+        String raw_mineRemain = tv_mine_remain_count.getText().toString();
+        mineRemain = Integer.parseInt(raw_mineRemain);
+        return mineRemain;
+    }
+
+    private void minusMineToMineRemainOfGameBoard(MineSquare mineSquare) {
+        if (mineSquare.isMine()) {
+            minesweeperBoard.setNumberOfRemainMine(minesweeperBoard.getNumberOfRemainMine() - 1);
+        }
+    }
+
+    private void plusMineToMineRemainOfGameBoard(MineSquare mineSquare) {
+        if (mineSquare.isMine()) {
+            minesweeperBoard.setNumberOfRemainMine(minesweeperBoard.getNumberOfRemainMine() + 1);
+        }
+    }
+
+    private void setWinIfWin() {
+        if (minesweeperBoard.getNumberOfRemainMine() == 0) {
+            tv_game_status = findViewById(R.id.tv_game_status);
+            tv_game_status.setVisibility(View.VISIBLE);
+            tv_game_status.setText("You win! Congratulations!");
+            isMineBoardGridViewClickable = false;
+            imv_face_emotion = findViewById(R.id.imv_face_emotion);
+            imv_face_emotion.setImageResource(R.drawable.minesweeper_smile);
+        }
+    }
+
     public void onClickMediumButton(View view) {
+        setMineRemainToTextView(40);
         isFirstClickOnMinesweeperBoard = true;
         seconds = 0;
         tv_difficult_level = findViewById(R.id.tv_difficult_level);
@@ -259,7 +396,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
 
         closeConstraintLayoutForDifficultMenu();
 
-        MinesweeperBoard minesweeperBoard = new MinesweeperBoard();
+        minesweeperBoard = new MinesweeperBoard();
         minesweeperBoard.setNumberOfColumn(16);
         minesweeperBoard.setNumberOfRow(16);
         minesweeperBoard.setTotalMine(40);
@@ -270,18 +407,19 @@ public class ActivityMinesweeper extends AppCompatActivity {
     }
 
     public void onClickHardButton(View view) {
+        setMineRemainToTextView(99);
         isFirstClickOnMinesweeperBoard = true;
         seconds = 0;
         tv_difficult_level = findViewById(R.id.tv_difficult_level);
-        tv_difficult_level.setText("hard16x30Area90Mines");
+        tv_difficult_level.setText("hard16x30Area99Mines");
         closeConstraintLayoutForDifficultMenu();
 
-        MinesweeperBoard minesweeperBoard = new MinesweeperBoard();
+        minesweeperBoard = new MinesweeperBoard();
         minesweeperBoard.setNumberOfColumn(16);
         minesweeperBoard.setNumberOfRow(30);
         minesweeperBoard.setTotalMine(99);
         minesweeperBoard.setNumberOfRemainMine(99);
-        minesweeperBoard.setDifficult_level("hard16x30Area90Mines");
+        minesweeperBoard.setDifficult_level("hard16x30Area99Mines");
 
         generateGameboard(minesweeperBoard);
     }

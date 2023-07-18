@@ -8,11 +8,12 @@ public class MineSquare {
     private boolean isFlag;
     private boolean isMarkedUnknown;
     private boolean isRevealed;
+    private boolean isBlank;
 
     public MineSquare() {
     }
 
-    public MineSquare(int x, int y, int number_of_mine_around, boolean isMine, boolean isFlag, boolean isMarkedUnknown, boolean isRevealed) {
+    public MineSquare(int x, int y, int number_of_mine_around, boolean isMine, boolean isFlag, boolean isMarkedUnknown, boolean isRevealed, boolean isBlank) {
         this.x = x;
         this.y = y;
         this.number_of_mine_around = number_of_mine_around;
@@ -20,6 +21,7 @@ public class MineSquare {
         this.isFlag = isFlag;
         this.isMarkedUnknown = isMarkedUnknown;
         this.isRevealed = isRevealed;
+        this.isBlank = isBlank;
     }
     public MineSquare(int x, int y, boolean isFlag, boolean isMine) {
         this.x = x;
@@ -34,6 +36,14 @@ public class MineSquare {
         this.number_of_mine_around = number_of_mine_around;
         this.isMine = isMine;
         this.isFlag = isFlag;
+    }
+
+    public boolean isBlank() {
+        return isBlank;
+    }
+
+    public void setBlank(boolean blank) {
+        isBlank = blank;
     }
 
     public boolean isRevealed() {
