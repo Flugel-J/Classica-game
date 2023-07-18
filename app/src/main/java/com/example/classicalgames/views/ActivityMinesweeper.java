@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -40,6 +41,7 @@ public class ActivityMinesweeper extends AppCompatActivity {
     TextView tv_game_status;
     MinesweeperBoard minesweeperBoard;
     List<MineSquare> mineSquaresArrayList;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,8 @@ public class ActivityMinesweeper extends AppCompatActivity {
     }
 
     private void revealMineSquare(MineSquare mineSquare, int numberOfMineAround, ImageView imageView, int position) {
+        MediaPlayer media_click = MediaPlayer.create(this, R.raw.minesweeper_click);
+        media_click.start();
         if (mineSquare.isMine()) {
             handler.removeCallbacks(runnable);
             imageView.setImageResource(R.drawable.minesweeper_square_mine_actived);
@@ -107,6 +111,8 @@ public class ActivityMinesweeper extends AppCompatActivity {
             tv_game_status.setVisibility(View.VISIBLE);
             imv_face_emotion = findViewById(R.id.imv_face_emotion);
             imv_face_emotion.setImageResource(R.drawable.minesweeper_sad);
+            MediaPlayer media_lose = MediaPlayer.create(this, R.raw.minesweeper_lose);
+            media_lose.start();
         } else if (numberOfMineAround != 0) {
             switch (numberOfMineAround) {
                 case 1:
@@ -295,6 +301,10 @@ public class ActivityMinesweeper extends AppCompatActivity {
     }
 
     private void generateGameboard(MinesweeperBoard minesweeperBoard) {
+        mediaPlayer = MediaPlayer.create(this, R.raw.minesweeper_fast_heartbeat);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+
         tv_game_status = findViewById(R.id.tv_game_status);
         tv_game_status.setVisibility(View.INVISIBLE);
         imv_face_emotion = findViewById(R.id.imv_face_emotion);
@@ -384,6 +394,8 @@ public class ActivityMinesweeper extends AppCompatActivity {
             isMineBoardGridViewClickable = false;
             imv_face_emotion = findViewById(R.id.imv_face_emotion);
             imv_face_emotion.setImageResource(R.drawable.minesweeper_smile);
+            MediaPlayer media_win = MediaPlayer.create(this, R.raw.minesweeper_win);
+            media_win.start();
         }
     }
 
@@ -424,4 +436,10 @@ public class ActivityMinesweeper extends AppCompatActivity {
         generateGameboard(minesweeperBoard);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mediaPlayer!=null)
+            mediaPlayer.release();
+    }
 }
