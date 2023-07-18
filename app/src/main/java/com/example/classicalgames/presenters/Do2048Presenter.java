@@ -276,13 +276,19 @@ public class Do2048Presenter implements Do2048Contract.Presenter {
     private boolean checkGameOver(){
         for (int i = 0;i<3;i++){
             for (int j =0;j<3;j++){
-                if(gameboard[i][j]==gameboard[i][j+1]) {
+                if(gameboard[i][j]==gameboard[i][j+1])
                     return false;
-                }
-                else if(gameboard[i][j]==gameboard[i+1][j]) {
+                else if(gameboard[i][j]==gameboard[i+1][j])
                     return false;
-                }
             }
+        }
+        for(int j=0;j<3;j++){
+            if(gameboard[3][j]==gameboard[3][j+1])
+                return false;
+        }
+        for(int i=0;i<3;i++){
+            if(gameboard[i][3]==gameboard[i+1][3])
+                return false;
         }
         return true;
     }
