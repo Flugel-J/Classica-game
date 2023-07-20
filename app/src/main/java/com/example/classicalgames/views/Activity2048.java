@@ -208,6 +208,11 @@ public class Activity2048 extends AppCompatActivity implements Do2048Contract.Vi
         menu_2048.show(getSupportFragmentManager(),"Setting");
     }
 
+    @Override
+    public void latBaiPlayAgain(DialogFragment dialog) {
+
+    }
+
     private Animation popUpAnimation() {
         // Create the animation
         Animation animation = new TranslateAnimation(

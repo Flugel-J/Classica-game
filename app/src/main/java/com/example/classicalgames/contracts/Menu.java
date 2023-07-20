@@ -5,5 +5,6 @@ public enum Menu {
     StopMenu,
     GameOverMenu,
     SettingMenu,
+    LatBaiPauseMenu,
     HowToPlayMenu
 }

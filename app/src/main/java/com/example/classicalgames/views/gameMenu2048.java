@@ -198,6 +198,33 @@ public class gameMenu2048 extends DialogFragment {
                         dismiss();
                     }
                 });
+                break;
+            case LatBaiPauseMenu:
+                btnMenu1.setText("Exit");
+                btnMenu2.setText("Play Again");
+                btnMenu3.setText("Resume");
+                btnMenu4.setVisibility(View.GONE);
+                btnMenu1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        startActivity(i);
+                    }
+                });
+                btnMenu2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.latBaiPlayAgain(gameMenu2048.this);
+                    }
+                });
+                btnMenu3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dismiss();
+                    }
+                });
+
+                break;
 
         }
         builder.setView(view);
@@ -209,6 +236,7 @@ public class gameMenu2048 extends DialogFragment {
         void newGame(DialogFragment dialog);
         void changeVolume(DialogFragment dialog,int volume);
         void settingMenu(DialogFragment dialog,Menu menu);
+        void latBaiPlayAgain(DialogFragment dialog);
 
     }
     @Override

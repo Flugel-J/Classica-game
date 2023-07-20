@@ -1,6 +1,7 @@
 package com.example.classicalgames.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.res.Resources;
 import android.media.MediaPlayer;
@@ -11,16 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.classicalgames.R;
 import com.example.classicalgames.contracts.DoLatBaiContract;
+import com.example.classicalgames.contracts.Menu;
 import com.example.classicalgames.models.latbai;
 import com.example.classicalgames.presenters.DoLatBaiPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContract.view {
+public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContract.view,gameMenu2048.NoticeDialogListener {
     DoLatBaiContract.presenter l;
     MediaPlayer mediaPlayer;
     int score = 0;
+    ImageView PauseButton;
     List<latbai> capBai = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,14 @@ public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContrac
         mediaPlayer = MediaPlayer.create(this, R.raw.latbai);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);
-
+        PauseButton = findViewById(R.id.img_pause);
+        PauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameMenu2048 menu = gameMenu2048.newInstance(Menu.LatBaiPauseMenu);
+                menu.show(getSupportFragmentManager(),"LatBaiPauseMenu");
+            }
+        });
         ImageView im00 = findViewById(R.id.im00);
         ImageView im01 = findViewById(R.id.im01);
         ImageView im02 = findViewById(R.id.im02);
@@ -172,7 +182,7 @@ public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContrac
                     capBai.clear();
                 }
             }
-        },1500);
+        },1000);
 
 
     }
@@ -194,5 +204,55 @@ public class ActivityLatbai extends AppCompatActivity implements DoLatBaiContrac
         super.onStop();
         if(mediaPlayer!=null)
             mediaPlayer.release();
+    }
+
+    @Override
+    public void loadSavedGame(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void saveAndExit(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void newGame(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void changeVolume(DialogFragment dialog, int volume) {
+
+    }
+
+    @Override
+    public void settingMenu(DialogFragment dialog, Menu menu) {
+
+    }
+
+    @Override
+    public void latBaiPlayAgain(DialogFragment dialog) {
+        score = 0;
+        TextView s = findViewById(R.id.txt_score);
+        s.setText(score + "");
+        dialog.dismiss();
+        findImage(0).setImageResource(0);
+        findImage(1).setImageResource(0);
+        findImage(2).setImageResource(0);
+        findImage(3).setImageResource(0);
+        findImage(10).setImageResource(0);
+        findImage(11).setImageResource(0);
+        findImage(12).setImageResource(0);
+        findImage(13).setImageResource(0);
+        findImage(20).setImageResource(0);
+        findImage(21).setImageResource(0);
+        findImage(22).setImageResource(0);
+        findImage(23).setImageResource(0);
+        findImage(30).setImageResource(0);
+        findImage(31).setImageResource(0);
+        findImage(32).setImageResource(0);
+        findImage(33).setImageResource(0);
+
     }
 }
