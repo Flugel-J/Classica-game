@@ -204,6 +204,10 @@ public class gameMenu2048 extends DialogFragment {
                 btnMenu2.setText("Play Again");
                 btnMenu3.setText("Resume");
                 btnMenu4.setVisibility(View.GONE);
+                header = view.findViewById(R.id.menuHeader);
+                txt_header = view.findViewById(R.id.txt_menuHeader);
+                header.setImageResource(0);
+                txt_header.setText("Lat Bai");
                 btnMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
