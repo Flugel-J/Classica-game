@@ -5,8 +5,7 @@ import com.example.classicalgames.contracts.DoTicTacToeContract;
 public class DoTicTacToePresenter implements DoTicTacToeContract.presenter {
     DoTicTacToeContract.view view;
     private int playerOneScoreCount=0, playerTwoScoreCount=0, rountCount=0;
-    //private int rountCount;  //dem so vong cho den khi dat den 9 va sau do dung tro choi
-    //bien boolen de chuyen doi nguoi choi
+
     boolean activityPlayer=true;
 
     //p1 => 0
