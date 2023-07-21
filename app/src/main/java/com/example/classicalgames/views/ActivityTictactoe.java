@@ -15,11 +15,11 @@ import com.example.classicalgames.presenters.DoTicTacToePresenter;
 
 public class ActivityTictactoe extends AppCompatActivity implements View.OnClickListener, DoTicTacToeContract.view {
     DoTicTacToeContract.presenter presenter;
-    private TextView playerOneScore, playerTwoScore, playerStatus ;//khai bao bien
-    private Button []  buttons = new Button[9];//tao mang do dai 9
+    private TextView playerOneScore, playerTwoScore, playerStatus ;
+    private Button []  buttons = new Button[9];
     private Button resetGame;
 
-    //bien dem so diem cua nguoi choi
+
 
 
     @Override
